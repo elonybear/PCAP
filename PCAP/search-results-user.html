@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+<head>	
+	<title>PCAP - Search Results</title>
+	<meta charset="utf-8" />
+	<meta http-equiv="Content-type" content="text/html; charset=utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1" />
+	<link rel="stylesheet" href="search-results.css"  />
+	<link rel="stylesheet" href="search-home.css"  />
+	<script type="text/javascript" src="http://code.jquery.com/jquery-latest.min.js"></script>
+	<script type="text/javascript" src="jquery-ui.js"></script>
+</head>
+<body>	
+	<div id="wrapper">
+		<div id="header">
+			<div id="results-search-bar-div">
+				<a href="https://www.lsa.umich.edu/pcap"><img id="results-search-logo" src="pcap-search-logo.png"/></a>
+				<input id="results-search-bar" type="text">
+				<a  id="results-search-button-a" href=""><div id="results-search-button-div">Search</div></a>
+			</div>	
+		</div>	
+		<div id="search-results-wrapper-div">
+			<div id="filter-buttons">
+				<a class="filter active" id="piece" href="">
+					<div>
+						<p>Title</p>
+						<img class="triangle-filter" src="triangle.jpg" />
+					</div>
+				</a>	
+				<a class="filter inactive" id="name" href="">
+					<div>
+						<p>Artist</p>
+						<img class="triangle-filter inactive-triangle" src="triangle.jpg" />
+					</div>
+				</a>	
+				<a class="filter inactive" id="institution" href="">
+					<div>
+						<p>Facility</p>
+						<img class="triangle-filter inactive-triangle" src="triangle.jpg" />
+					</div>
+				</a>	
+				<div class="clearer"></div>
+			</div>
+			<div id="all-search-results-div" class="style-6">
+				<!--search result begin -->
+				<div class="search-result search-result-gray">
+					<div class="data-wrapper title-div"><p class="search-result-data title-p">Mont Sainte-Victoire seen from Bellevue</p></div>
+					<div class="data-wrapper artist-div"><p class="search-result-data artist-p">The Best Person Ever</p></div>
+					<div class="data-wrapper institution-div"><p class="search-result-data institution-p">The Best Place Ever</p></div>
+				</div>	
+				<!--search result end-->
+				<!--search result begin -->
+				<div class="search-result">
+					<div class="data-wrapper title-div"><p class="search-result-data title-p">Mont Sainte-Victoire seen from Bellevue</p></div>
+					<div class="data-wrapper artist-div"><p class="search-result-data artist-p">The Best Person Ever</p></div>
+					<div class="data-wrapper institution-div"><p class="search-result-data institution-p">The Best Place Ever</p></div>
+				</div>	
+				<!--search result end-->
+			</div>
+	</div>	
+	<script type="text/javascript" src="search-results.js"></script>
+</body>
+</html>
+

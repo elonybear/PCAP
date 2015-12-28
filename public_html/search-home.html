@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>PCAP Database</title>
+	<meta charset="utf-8" />
+	<meta http-equiv="Content-type" content="text/html; charset=utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1" />
+	<link rel="stylesheet" href="search-home.css"  />
+	<script type="text/javascript" src="http://code.jquery.com/jquery-latest.min.js"></script>
+	<script src="jquery-ui.js"></script>
+	<link rel="stylesheet" href="jquery-ui.css" />
+</head>
+<body>
+	<div id="wrapper">
+	<div id="member-access-div">
+		<div id="member-buttons-wrapper">
+			<a id="database-a" class="member-button-a button-a" href="">
+				<div class="member-button-div button-div">Update Database</div>
+			</a>
+			<a id="login-button-a" class="member-button-a button-a" href="">
+				<div id="login-button-div" class="member-button-div button-div">Log In</div>
+			</a>
+		</div>
+	</div>
+	<div id="search-wrapper">
+		<a id="logo-link" href="http://www.lsa.umich.edu/pcap/"><div id="search-logo"></div></a>
+		<p id="search-error-message">* search value required</p>	
+		<div id="search-form-div">
+			<form id="search-form">
+				<input id="search-input" type="text" name="search-value" 
+					placeholder="Search by artist name, titles, or institution"> 
+				<a id="search-button-a" class="button-a" href="search-results-user.html">
+					<div id="search-button-div" class="button-div">Search</div>
+				</a> 
+			</form>
+		</div>
+	</div>
+	</div>
+	<div id="login-window-wrapper" class="hidden-login">
+		<a id="x-login-a" href="">X</a>					
+		<form id="login-form">
+			<p id="login-error-message">* incorrect username or password</p>
+			<input id="username" class="login-input" type="text" name="username" placeholder="Username">
+			<input id="password" class="login-input" type="password" name="password" placeholder="Password">
+			<a id="submit-login" class="button-a" href="search-results-admin.html"><div class="button-div" id="submit-login-div">Submit</div></a>
+		</form>
+	</div>
+
+
+	<script type="text/javascript" src="search-home.js"></script>
+</body>
+</html>

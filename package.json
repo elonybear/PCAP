@@ -1,0 +1,27 @@
+{
+  "name": "pcap-database",
+  "version": "1.0.0",
+  "description": "Database site for PCAP artist work",
+  "main": "back-end.js",
+  "dependencies": {
+    "bcrypt": "^0.8.5",
+    "body-parser": "^1.14.2",
+    "crypto-js": "^3.1.5",
+    "express": "^4.13.3",
+    "jsonwebtoken": "^5.4.1",
+    "node-persist": "0.0.8",
+    "persist-js": "^0.3.1",
+    "pg": "^4.4.3",
+    "pg-hstore": "^2.3.2",
+    "sequelize": "^3.15.1",
+    "sequelize-virtual-fields": "^0.3.6",
+    "sqlite3": "^3.1.1",
+    "underscore": "^1.8.3"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Elon Rubin",
+  "license": "ISC"
+}

@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html>
+<head>	
+	<title>PCAP Database</title>
+	<meta charset="utf-8" />
+	<meta http-equiv="Content-type" content="text/html; charset=utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1" />
+	<link rel="stylesheet" href="search-results.css"  />
+	<link rel="stylesheet" href="search-home.css"/>
+	<script type="text/javascript" src="http://code.jquery.com/jquery-latest.min.js"></script>
+	<script type="text/javascript" src="jquery-ui.js"></script>
+</head>
+<body>	
+	<div id="wrapper">
+		<div id="header">
+			<div id="results-search-bar-div">
+				<a href="https://www.lsa.umich.edu/pcap"><img id="results-search-logo" src="pcap-search-logo.png"/></a>
+				<input id="results-search-bar" type="text">
+				<a  id="results-search-button-a" href=""><div id="results-search-button-div">Search</div></a>
+			</div>	
+			<div id="member-buttons-div">
+				<p id="log-in-status">Logged in as admin.</p>
+				<a class="results-button-a" href="search-home.html">
+					<div class="results-button-div">+ Add New Entry</div>
+				</a>	
+				<a class="results-button-a" href="search-results-user.html">
+					<div class="results-button-div">Log Out</div>
+				</a>	
+			</div>
+		</div>	
+		<div id="search-results-wrapper-div">
+			<div id="filter-buttons">
+				<a class="filter active" id="piece" href="">
+					<div>
+						<p>Title</p>
+						<img class="triangle-filter" src="triangle.jpg" />
+					</div>
+				</a>	
+				<a class="filter inactive" id="name" href="">
+					<div>
+						<p>Artist</p>
+						<img class="triangle-filter inactive-triangle" src="triangle.jpg" />
+					</div>
+				</a>	
+				<a class="filter inactive" id="institution" href="">
+					<div>
+						<p>Facility</p>
+						<img class="triangle-filter inactive-triangle" src="triangle.jpg" />
+					</div>
+				</a>	
+				<div class="clearer"></div>
+			</div>
+			<div id="all-search-results-div" class="style-6">
+				<!--search result begin -->
+				<div class="search-result search-result-gray">
+					<div class="data-wrapper title-div"><p class="search-result-data title-p">*Mont Sainte-Victoire seen from Bellevue</p></div>
+					<div class="data-wrapper artist-div"><p class="search-result-data artist-p">The Best Person Ever</p></div>
+					<div class="data-wrapper institution-div"><p class="search-result-data institution-p">The Best Place Ever</p></div>
+					<div class="result-buttons">
+						<a href="" class="result-button edit-save"><p>Edit</p></a>
+						<a href="" class="result-button remove-cancel"><p>Remove</p></a>
+					</div>
+				</div>	
+				<!--search result end-->
+				<!--search result begin -->
+				<div class="search-result">
+					<div class="data-wrapper title-div"><p class="search-result-data title-p">*Mont Sainte-Victoire seen from Bellevue</p></div>
+					<div class="data-wrapper artist-div"><p class="search-result-data artist-p">The Best Person Ever</p></div>
+					<div class="data-wrapper institution-div"><p class="search-result-data institution-p">The Best Place Ever</p></div>
+					<div class="result-buttons">
+						<a href="" class="result-button edit-save"><p>Edit</p></a>
+						<a href="" class="result-button remove-cancel"><p>Remove</p></a>
+					</div>
+				</div>	
+				<!--search result end-->
+			</div>
+		</div>
+	</div>
+	<div id="login-overlay">
+		<div id="login-window-wrapper">
+			<a id="x-login-a" href="">X</a>					
+			<form id="login-form">
+				<p id="login-error-message">* incorrect username or password</p>
+				<input id="username" class="login-input" type="text" name="username" placeholder="Username">
+				<input id="password" class="login-input" type="password" name="password" placeholder="Password">
+				<a id="submit-login" class="button-a" href="search-results-admin.html"><div class="button-div" id="submit-login-div">Submit</div></a>
+			</form>
+		</div>
+	</div>
+	<script type="text/javascript" src="search-home.js"></script>
+	<script type="text/javascript" src="search-results.js"></script>
+</body>
+</html>
+
