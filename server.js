@@ -5,6 +5,7 @@ var db = require('./db.js')
 var bcrypt = require('bcrypt');
 var crypto = require('crypto-js');
 var storage = require('node-persist');
+var jsdiff = require('diff');
 
 var app = express();
 var PORT = 3000;
@@ -112,20 +113,22 @@ app.post('/pieces', function(req, res){
 		location_upper: body.location.toUpperCase(),
 	};
 	console.log(new_piece.artist_upper);
-	db.piece.findAll({
+	db.piece.findOne({
 		where: {
 			artist_upper: new_piece.artist_upper
 		}
-	}).then(function(pieces){
-		console.log(JSON.stringify(pieces));
-		pieces.forEach(function(piece){
+	}).then(function(piece){
+		if(piece){
 			new_piece.artist_crit = piece.artist_crit;
-		});
+		}
 		db.piece.create(new_piece).then(function(piece){
 			db.piece.findAll({
 				order: order
 			}).then(function(pieces){
-				res.status(200).json(pieces);
+				res.status(200).json({
+					all_pieces: pieces,
+					new_piece: piece
+				});
 			});
 		}, function(e){
 			console.log(e);
@@ -158,8 +161,6 @@ app.put('/pieces/:id', function(req, res){
 	var order = req.body.filter + ' ' + req.body.order;
 	var attributes = {};	
 
-	
-
 	if(body.hasOwnProperty('title')){
 		attributes.title = body.title;
 		attributes.title_upper = body.title.toUpperCase();
@@ -191,6 +192,13 @@ app.put('/pieces/:id', function(req, res){
 		}
 	}).then(function(piece){
 		if(piece){
+			var old_piece = piece;
+			var differences = {};
+			for(var key in piece.dataValues){
+				if(piece[key] != attributes[key]){
+					differences[key] = attributes[key];
+				}
+			}
 			piece.update(attributes).then(function(piece){
 				if(piece.piece_crit == true){
 					db.piece.findAll({
@@ -203,11 +211,19 @@ app.put('/pieces/:id', function(req, res){
 						});
 					});
 				}
-				db.piece.findAll({
-					order: order
-				}).then(function(pieces){
-					res.json(pieces);
-				});
+				if(differences.hasOwnProperty(req.body.filter)){
+					db.piece.findAll({
+						order: order
+					}).then(function(pieces){
+						res.json({
+							all_pieces: pieces,
+							piece_id: piece.id
+						});
+					});	
+				}
+				else{
+					res.status(204).send();
+				}
 			}).catch(function(e){
 				res.status(500).json(e);	
 			});

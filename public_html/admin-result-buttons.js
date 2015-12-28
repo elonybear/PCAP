@@ -110,7 +110,7 @@ $(document).on("click", ".result-button", function(e){ //Click on 'Edit', 'Remov
 		$(this).parent().children().eq(1).children().html("Remove");
 		$(this).parents("div").each(function(){
 			if($(this).hasClass("search-result")){
-				
+				var result = $(this);	
 				var new_title = $(this).children().eq(1).children().val();
 				var new_artist = $(this).children().eq(2).children().val();
 				var new_facility = $(this).children().eq(3).children().val();
@@ -145,27 +145,50 @@ $(document).on("click", ".result-button", function(e){ //Click on 'Edit', 'Remov
 						},
 						404: function(){
 							console.log('Not found');
+						},
+						204: function(){
+							for(var data = 1; data < 5; data++){
+								if(data == 1){
+									result.children().eq(data).children().replaceWith("<p class='search-result-data title-p'>" + new_title + "</p>");
+								}
+								if(data == 2){
+									result.children().eq(data).children().replaceWith("<p class='search-result-data artist-p'>" + new_artist + "</p>");
+								}
+								if(data == 3){
+									result.children().eq(data).children().replaceWith("<p class='search-result-data institution-p'>" + new_facility + "</p>");
+								}
+								if(data == 4){
+									result.children().eq(data).children().replaceWith("<p class='search-result-data location-p'>" + new_loc + "</p>");
+								}
+				}
 						}
 					},
-					success: function(piecesArray, textStatus, jqXHR){
-						$("#all-search-results-div").empty();
-						console.log(piecesArray);
-						piecesArray.forEach(function(piece){
-							createNew(piece.title, piece.artist, piece.facility, piece.location, piece.id, piece.piece_crit);
-						});
-						values = [];
-						var max = 0;
-						$(this).children(".data-wrapper").each(function(){
-							if($(this).height() > max){
-								max = $(this).height();
-							}
-						});
+					success: function(piecesStruct, textStatus, jqXHR){
+						if(piecesStruct){
+						   	var updated_array = piecesStruct.all_pieces;
+							var updated_entry_id = piecesStruct.piece_id;
+							$('#all-search-results-div').children().each(function(){
+								console.log($(this).children('.result-id').val() + ' ' + updated_entry_id);
+								if($(this).children('.result-id').val() === updated_entry_id.toString()){
+									$(this).remove();
+									return false;
+								}
+							});
 
-						$(this).children().each(function(){
-							var difference = max - $(this).height();
-							var padding = difference / 2;
-							$(this).css("padding", padding + "px 0");
-						});
+							for(var i = 0; i < updated_array.length; i++){
+								if(updated_array[i].id === updated_entry_id){
+									var piece= updated_array[i];
+									var entry = createNew(piece.title, piece.artist, piece.facility, piece.location, piece.id, piece.piece_crit);
+									if(i === 0){
+										$('#all-search-results-div').prepend(entry);
+									}
+									else{
+										$(entry).insertAfter($('#all-search-results-div').children().eq(i - 1));
+									}
+								}
+							}
+							values = [];
+						}
 					}
 				});
 

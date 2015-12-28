@@ -1,9 +1,9 @@
 //Slide down login menu upon page load
-$(document).ready(function(){
+/*$(document).ready(function(){
 		$("#login-overlay").css("top", 0);
 		$("#wrapper").addClass("blur-filter");		
 		$("#username").focus();	
-});
+});*/
 
 //Upon successful login, hide meny
 function hideLoginMenu(){	
@@ -43,7 +43,6 @@ $("#submit-login").click(function (e) {
 		statusCode: {
 			200: function(){
 				count = 0;
-				hideLoginMenu();
 				$.ajax({
 					url: url,
 					methods: 'GET',
@@ -54,8 +53,22 @@ $("#submit-login").click(function (e) {
 					},
 					success: function(piecesArray, textStatus, jqXHR){
 						piecesArray.forEach(function(piece){
-							createNew(piece.title, piece.artist, piece.facility, piece.location, piece.id, piece.piece_crit);	
+							var entry = createNew(piece.title, piece.artist, piece.facility, piece.location, piece.id, piece.piece_crit);		
+							$("#all-search-results-div").append(entry);
+							var max = 0;
+							$(".data-wrapper").each(function(){
+								if($(this).height() > max){
+									max = $(this).height();
+								}
+							});
+
+							$(".data-wrapper").each(function(){
+								var difference = max - $(this).height();
+								var padding = difference / 2;
+								$(this).css("padding", padding + "px 0");
+							});
 						});
+						hideLoginMenu();
 					}
 				});	
 			},

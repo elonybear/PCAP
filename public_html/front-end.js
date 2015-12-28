@@ -49,7 +49,20 @@ $(".filter").click(function(e){
 		success: function(piecesArray, textStatus, jqXHR){
 			$("#all-search-results-div").empty();
 			piecesArray.forEach(function(piece){
-				createNew(piece.title, piece.artist, piece.facility, piece.location, piece.id, piece.piece_crit);	
+				var entry = createNew(piece.title, piece.artist, piece.facility, piece.location, piece.id, piece.piece_crit);		
+				$("#all-search-results-div").append(entry);
+				var max = 0;
+				$(".data-wrapper").each(function(){
+					if($(this).height() > max){
+						max = $(this).height();
+					}
+				});
+
+				$(".data-wrapper").each(function(){
+					var difference = max - $(this).height();
+					var padding = difference / 2;
+					$(this).css("padding", padding + "px 0");
+				});
 			});
 		}
 	});	

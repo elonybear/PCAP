@@ -35,33 +35,7 @@ function createNew(title, artist, facility, loc, id, piece_crit){
 			"</div>" +
 			"<input class='result-id' type=hidden value=" + id + ">" +
 		"</div>";
-	$("#all-search-results-div").append(entry);
-	var max = 0;
-	$(".data-wrapper").each(function(){
-		if($(this).height() > max){
-			max = $(this).height();
-		}
-	});
-
-	$(".data-wrapper").each(function(){
-		var difference = max - $(this).height();
-		var padding = difference / 2;
-		$(this).css("padding", padding + "px 0");
-	});
-
-	$(".barrier").css('height', max / 3);
-
-	$(".barrier").each(function(){
-		if($(this).height() > max){
-			max = $(this).height();
-		}
-	});
-
-	$(".barrier").each(function(){
-		var difference = max - $(this).height();
-		var margin = difference / 2;
-		$(this).css("margin-top", margin + "px");
-	});
+	return entry;
 }
 
 $("#add-new-entry").click(function(e){			
@@ -110,11 +84,25 @@ $("#submit-new-entry").click(function(e){
 				$("#location-error").fadeIn().delay(200).fadeOut();
 			}
 		},
-		success: function(piecesArray, textStatus, jqXHR){
-			$("#all-search-results-div").empty();
+		success: function(pieceStruct, textStatus, jqXHR){
+		/*	$("#all-search-results-div").empty();
 			piecesArray.forEach(function(piece){
 				createNew(piece.title, piece.artist, piece.facility, piece.location, piece.id, piece.piece_crit);
-			});
+			});*/
+		   	var piecesArray = pieceStruct.all_pieces;
+			var new_piece = pieceStruct.new_piece;
+			var entry = createNew(new_piece.title, new_piece.artist, new_piece.facility, new_piece.location, new_piece.id, new_piece.piece_crit);
+			for(var i = 0; i < piecesArray.length; i++){
+				if(piecesArray[i].id === new_piece.id){
+					if(i === 0){
+						$("#all-search-results-div").prepend(entry);
+					}	
+					else{
+						$(entry).insertAfter($("#all-search-results-div").children().eq(i - 1));	
+					}
+					break;
+				}
+			}
 		}
 	});
 	$("#new-entry-x").click();

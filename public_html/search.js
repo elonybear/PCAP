@@ -24,40 +24,29 @@ function initiateSearch(user){
 				}
 			},
 			success: function(piecesArray, textStatus, jqXHR){
-				$("#all-search-results-div").empty();
+				/*$("#all-search-results-div").empty();
 				piecesArray.forEach(function(piece){
 					createNew(piece.title, piece.artist, piece.facility, piece.location, piece.id, piece.piece_crit);
+				});*/
+				$('#all-search-results-div').children().each(function(){
+					var i = 0;
+					for(; i < piecesArray.length; i++){
+						if(piecesArray[i].id.toString() === $(this).children('.result-id').val()){
+							$(this).css('display', 'block');
+							break;
+						}
+					}
+					if(i === piecesArray.length){
+						$(this).css('display', 'none');
+					}
 				});
 			}
 		})
 	}
 	else{
-		console.log('Search bar empty');
-		var url = 'http://localhost:3000/';
-		if(user){
-			url += 'user/pieces';
-		}
-		else{
-			url += 'admin/pieces';
-		}
-		url += '?filter=' + filters[$('.filter').index(active_filter)] 
-				+ '&order=' + order[(getRotationDegrees($('.active')) / 180) % 2];	
-
-		$.ajax({
-			url: url,
-			method: 'GET',
-			statusCode: {
-				500: function(){
-					console.log('Server error');
-				}
-			},
-			success: function(piecesArray, textStatus, jqXHR){
-				$("#all-search-results-div").empty();
-				piecesArray.forEach(function(piece){
-					createNew(piece.title, piece.artist, piece.facility, piece.location, piece.id, piece.piece_crit);
-				})
-			}
-		})
+		$('#all-search-results-div').children().each(function(){
+			$(this).css('display', 'block');	
+		});
 	}
 }
 

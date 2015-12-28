@@ -176,6 +176,10 @@ a{
 	width:1180px;
 	border-bottom-left-radius:5px;
 	border-top-left-radius:5px;
+	background-color:#E2E2E2;
+	-webkit-box-shadow: 3px 3px 21px -1px rgba(150,150,150,1);
+	-moz-box-shadow: 3px 3px 21px -1px rgba(150,150,150,1);
+	box-shadow: 3px 3px 21px -1px rgba(150,150,150,1);
 }
 
 .search-result-gray{	
@@ -201,7 +205,6 @@ a{
 .search-result-data{
 	color:#000000;
 	font-family:sans-serif;
-	width:200px;
 }
 
 .location-p{
@@ -210,6 +213,7 @@ a{
 
 .critique-checkbox{
 	margin-left:20px;
+	float:left;
 }
 
 .result-buttons{
