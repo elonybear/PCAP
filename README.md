@@ -50,3 +50,8 @@ Packages:
 1. Run the server: `node server.js`
 2. In a browser navigate to `http://localhost:3000/admin.html`
 3. Add, update, or delete entries
+
+### Next Steps
+
+1. Add 'clear database' functionality
+2. Add change password functionality for administrators
