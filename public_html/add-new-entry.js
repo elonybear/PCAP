@@ -1,3 +1,9 @@
+function reload(filter, order){
+	
+}
+
+var MAX_COLUMN_SIZE = 1;
+
 function getRotationDegrees(obj) {
 	var matrix = obj.css('-webkit-transform') ||
 				obj.css('-moz-transform')
@@ -16,26 +22,44 @@ function getRotationDegrees(obj) {
 }
 
 function createNew(title, artist, facility, loc, id, piece_crit){
-	var entry = 
-		"<div class='search-result'>";
+	var entry; 
 		console.log(piece_crit);
 		if(piece_crit === true){
-			entry += "<input class='critique-checkbox' type=checkbox disabled=true checked=true/>";
+			entry = "<div class='search-result critiqued'>";
+		} else{
+			entry = "<div class='search-result uncritiqued'>";
 		}
-		else{
-			entry += "<input class='critique-checkbox' type=checkbox disabled=true/>";
-		}
-			entry += "<div class='data-wrapper title-div'><p class='search-result-data title-p'>" + title + "</p></div>" +
-			"<div class='data-wrapper artist-div'><p class='search-result-data artist-p'>" + artist + "</p></div>" +
-			"<div class='data-wrapper institution-div'><p class='search-result-data institution-p'>" + facility + "</p></div>" +
-			"<div class='data-wrapper location-div' style='border-right: none'><p class='search-result-data location-p'>" + loc + "</p></div>" +
-			"<div class='result-buttons'>" +
-				"<a href='' class='result-button edit-save'><p>Edit</p></a>" +
-				"<a href='' class='result-button remove-cancel'><p>Remove</p></a>" +
-			"</div>" +
-			"<input class='result-id' type=hidden value=" + id + ">" +
-		"</div>";
-	return entry;
+		
+		entry += "<div class='data-wrapper'>" +
+					"<div>" +
+						"<p class='search-result-data title-p'>" + title + "</p>" +
+						"<div class='clearer'></div>" +
+					"</div>" +
+					"<div>" +
+						"<p class='search-result-data artist-p'>" + artist + "</p>" +
+						"<p class='search-result-data institution-p'>" + facility + "</p>" +
+						"<p class='search-result-data location-p'>" + loc + "</p>" +
+						"<div class='clearer'></div>" +
+					"</div>" +
+					"<div class='result-buttons'>" +
+						"<a href='' class='result-button edit-save'><p>Edit</p></a>" +
+						"<a href='' class='result-button remove-cancel'><p>Remove</p></a>" +
+					"</div>" +
+				"</div>" +
+				"<input class='result-id' type=hidden value=" + id + ">" +
+			"</div>" + 
+			"<div class='critique-div'>" +
+				"<p class='critique-p'>Critiqued?</p>";
+				if(piece_crit === true){
+					entry += "<input type=checkbox class='critique-checkbox' checked/>";
+				}
+				else{
+					entry += "<input type=checkbox class='critique-checkbox'/>";
+				}
+			entry += "</div>";
+					
+			
+		return entry;
 }
 
 $("#add-new-entry").click(function(e){			
@@ -85,24 +109,80 @@ $("#submit-new-entry").click(function(e){
 			}
 		},
 		success: function(pieceStruct, textStatus, jqXHR){
-		/*	$("#all-search-results-div").empty();
-			piecesArray.forEach(function(piece){
-				createNew(piece.title, piece.artist, piece.facility, piece.location, piece.id, piece.piece_crit);
-			});*/
-		   	var piecesArray = pieceStruct.all_pieces;
+		 	var piecesArray = pieceStruct.all_pieces;
 			var new_piece = pieceStruct.new_piece;
 			var entry = createNew(new_piece.title, new_piece.artist, new_piece.facility, new_piece.location, new_piece.id, new_piece.piece_crit);
+			var MAX_COLUMN_SIZE = pieceStruct.max_rows;
 			for(var i = 0; i < piecesArray.length; i++){
 				if(piecesArray[i].id === new_piece.id){
+					var left_col_size = $('#left-column').children().length;
+					var right_col_size = $('#right-column').children().length;
 					if(i === 0){
-						$("#all-search-results-div").prepend(entry);
-					}	
-					else{
-						$(entry).insertAfter($("#all-search-results-div").children().eq(i - 1));	
+						if(left_col_size > 0){
+							$("#left-column").children().first().removeClass('first');
+						}
+						$("#left-column").prepend(entry);
+						$("#left-column").children().first().addClass('first');
+						if(left_col_size + 1 > MAX_COLUMN_SIZE && right_col_size < MAX_COLUMN_SIZE){
+							if(right_col_size > 0){
+								$("#right-column").children().first().removeClass('first');
+							}
+							$('#right-column').prepend($('#left-column').children().last());
+							$("#right-column").children().first().addClass('first');
+						} else if(left_col_size + 1 > MAX_COLUMN_SIZE){
+							MAX_COLUMN_SIZE++;
+						}
 					}
+					else if(i < MAX_COLUMN_SIZE){
+						$(entry).insertAfter($('#left-column').children().eq(i - 1));
+						if(left_col_size + 1 > MAX_COLUMN_SIZE && right_col_size < MAX_COLUMN_SIZE){
+							if(right_col_size > 0){
+								$("#right-column").children().first().removeClass('first');
+							}
+							$('#right-column').prepend($('#left-column').children().last());
+							$("#right-column").children().first().addClass('first');
+						} else if(left_col_size + 1 === MAX_COLUMN_SIZE){
+							MAX_COLUMN_SIZE++;
+						}
+					}
+					else if(i === MAX_COLUMN_SIZE){
+						if(right_col_size < MAX_COLUMN_SIZE){
+							if(right_col_size > 0){
+								$("#right-column").children().first().removeClass('first');	
+							}
+							$("#right-column").prepend(entry);
+							$("#right-column").children().first().addClass('first');		
+						}
+						else{
+							$(entry).insertAfter($('#left-column').children().last());	
+							MAX_COLUMN_SIZE++;
+						}
+					}
+					else if(i > MAX_COLUMN_SIZE){
+						$(entry).insertAfter($('#right-column').children().eq(Math.floor(i/2) - 1));	
+						if(right_col_size + 1 > MAX_COLUMN_SIZE){
+							$('#right-column').children().first().removeClass('first');
+							$($('#right-column').children().first()).insertAfter($('#left-column').children().last());	
+							$('#right-column').children().first().addClass('first');
+							MAX_COLUMN_SIZE++;
+						}
+					}
+					$.ajax({
+						url: 'http://localhost:3000/number',
+						method: 'POST',
+						data: JSON.stringify({
+							max_rows: MAX_COLUMN_SIZE
+						}),
+						contentType: 'application/json',
+						statusCode: {
+							204: function(){
+								console.log('Update max rows successful');
+							}
+						}
+					});
 					break;
 				}
-			}
+			}	
 		}
 	});
 	$("#new-entry-x").click();

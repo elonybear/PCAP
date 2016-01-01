@@ -9,16 +9,28 @@ var jsdiff = require('diff');
 
 var app = express();
 var PORT = 3000;
-var masterPassword = crypto.SHA256('hello').toString();
 app.use(bodyParser.json());
 app.use(express.static(__dirname + '/public_html'));
 storage.initSync();
+
+var argv = require('yargs')
+	.options('force', {
+		force: {
+			demand: true,
+			alias: 'f',
+			description: 'clear the database',
+			type: 'string'
+		}	
+	}).argv;
+
+var force = argv.f;
 
 function initializePassword(){
 	var login = {
 		username: 'admin',
 		password: 'hello'
 	};
+	var masterPassword = crypto.SHA256(login.password).toString();
 	var encryptedLogin = crypto.AES.encrypt(JSON.stringify(login), masterPassword);
 	storage.setItemSync('login', encryptedLogin.toString());
 }
@@ -92,6 +104,7 @@ app.get('/search', function(req, res){
 		where: where,
 		order: order
 	}).then(function(pieces){
+		var max_rows = storage.getItemSync('max_rows');
 		res.json(pieces);	
 	}, function(e){
 		res.status(500).send(e);
@@ -125,9 +138,11 @@ app.post('/pieces', function(req, res){
 			db.piece.findAll({
 				order: order
 			}).then(function(pieces){
+				var max_rows = storage.getItemSync('max_rows'); 	
 				res.status(200).json({
 					all_pieces: pieces,
-					new_piece: piece
+					new_piece: piece,
+					max_rows: max_rows
 				});
 			});
 		}, function(e){
@@ -211,17 +226,31 @@ app.put('/pieces/:id', function(req, res){
 						});
 					});
 				}
-				if(differences.hasOwnProperty(req.body.filter)){
+				else{
 					db.piece.findAll({
-						order: order
+						where: {
+							artist_upper: piece.artist_upper
+						}
 					}).then(function(pieces){
-						res.json({
-							all_pieces: pieces,
-							piece_id: piece.id
+						var critiqued = false;
+						pieces.forEach(function(piece){
+							if(piece.piece_crit === true){
+								critiqued = true;
+							}
 						});
-					});	
+						if(critiqued = false){
+							pieces.forEach(function(piece){
+								piece.update({artist_crit: true});
+							})
+						}
+					})
+				}
+				if(differences.hasOwnProperty(req.body.filter)){
+					console.log('Sending 200');
+					res.status(200).send();
 				}
 				else{
+					console.log('Sending 204');
 					res.status(204).send();
 				}
 			}).catch(function(e){
@@ -241,20 +270,70 @@ app.post('/login', function(req, res){
 	var body = _.pick(req.body, 'username', 'password');
 	var login;
 	var encryptedLogin = storage.getItemSync('login');
-	var bytes = crypto.AES.decrypt(encryptedLogin, masterPassword);
-	login = JSON.parse(bytes.toString(crypto.enc.Utf8));
-	if(login.username === body.username && login.password === body.password){
-		res.status(200).send('Login successful');
-	}	
-	else{
-		res.status(401).send();
+	if(encryptedLogin){
+		var masterPassword = crypto.SHA256(body.password).toString();
+		var bytes = crypto.AES.decrypt(encryptedLogin, masterPassword);
+		login = JSON.parse(bytes.toString(crypto.enc.Utf8));
+		if(login.username === body.username && login.password === body.password){
+			storage.setItemSync('time', req.body.time);
+			res.status(200).send('Login successful');
+		} else{
+			res.status(401).send();
+		}
+	} else{
+		res.status(404).send();
 	}
 });
 
+app.post('/password', function(req, res){
+	console.log('Setting new password');
+	var body = _.pick(req.body, 'password');
+	var login = {
+		username: 'admin',
+		password: body.password
+	};
+	var masterPassword = crypto.SHA256(login.password).toString();
+	var encryptedLogin = crypto.AES.encrypt(JSON.stringify(login), masterPassword);
+	storage.setItemSync('login', encryptedLogin.toString());
+	res.status(204).send();	
+});
 
-db.sequelize.sync({force: true}).then(function(){
+//Get /time on load for admin
+app.get('/time', function(req, res){
+	var time = storage.getItemSync('time');
+	if(time){
+		console.log('Returning time: ' + time);
+		res.status(200).json(time);
+	}
+	else{
+		res.status(404).send();
+	}
+});
+
+//POST /time on load for admin
+app.post('/time', function(req, res){
+	var body = _.pick(req.body, 'time');
+	console.log('Setting time: ' + JSON.stringify(body));
+	storage.setItemSync('time', body.time);
+	res.status(204).send();
+});
+
+//POST /number on load
+app.post('/number', function(req, res){
+	var body = _.pick(req.body, 'max_rows');
+	storage.setItemSync('max_rows', body.max_rows);
+	res.status(204).send();
+});
+
+db.sequelize.sync({force: force === 'true'}).then(function(){
+	if(force === 'true'){
+		console.log('Server started with empty database');
+	}
+	else{
+		console.log('Server importing existing database');
+	}
 	app.listen(PORT, function(){
-		initializePassword();
+		//initializePassword();
 		console.log('Listening on port ' + PORT);
 	});
 });

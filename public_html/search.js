@@ -14,7 +14,7 @@ function initiateSearch(user){
 		url += '&q=' + $("#results-search-bar").val() 
 				+ '&filter=' + filters[$('.filter').index(active_filter)] 
 				+ '&order=' + order[(getRotationDegrees($('.active')) / 180) % 2];	
-
+		console.log(url);
 		$.ajax({
 			url: url,
 			method: 'GET',
@@ -24,28 +24,31 @@ function initiateSearch(user){
 				}
 			},
 			success: function(piecesArray, textStatus, jqXHR){
-				/*$("#all-search-results-div").empty();
-				piecesArray.forEach(function(piece){
-					createNew(piece.title, piece.artist, piece.facility, piece.location, piece.id, piece.piece_crit);
-				});*/
 				$('#all-search-results-div').children().each(function(){
-					var i = 0;
-					for(; i < piecesArray.length; i++){
-						if(piecesArray[i].id.toString() === $(this).children('.result-id').val()){
-							$(this).css('display', 'block');
-							break;
+					$(this).find('.search-result').each(function(){
+						var i = 0;
+						for(; i < piecesArray.length; i++){
+							if(piecesArray[i].id.toString() === $(this).children('.result-id').val()){
+								$(this).css('display', 'block');
+								$(this).next().css('display', 'block');
+								break;
+							}
 						}
-					}
-					if(i === piecesArray.length){
-						$(this).css('display', 'none');
-					}
+						if(i === piecesArray.length){
+							$(this).css('display', 'none');
+							$(this).next().css('display', 'none');
+						}	
+					});
 				});
 			}
 		})
 	}
 	else{
 		$('#all-search-results-div').children().each(function(){
-			$(this).css('display', 'block');	
+			$(this).find('.search-result').each(function(){
+				$(this).css('display', 'block');		
+				$(this).next().css('display', 'block');
+			})
 		});
 	}
 }
