@@ -10,7 +10,6 @@ a{
 #header{
 	width:100%;
 	height:60px;
-	border-bottom:1px solid #D5D5D5;
 	background-color:#F1F1F1;
 	position:fixed;
 	top:0px !important;
@@ -18,13 +17,15 @@ a{
 
 #results-search-bar-div{
 	float:left;
+	width:1245px;
+	border-bottom:1px solid #D5D5D5;
 }
 
 #results-search-logo{
 	float:left;	
 	margin-right:8px;
 	width:228px;
-	height:61px;
+	height:60px;
 }
 
 #results-search-bar{
@@ -68,30 +69,105 @@ a{
 /*Particular to admin*/
 #member-buttons-div{
 	float:right;
-	margin-top:12px;
+	width:190px;
+	height:60px;
+	border-bottom:1px solid #D5D5D5;
 }
 
-#log-in-status{
-	float:left;
-	color: #00BFFF;
-	margin-right:20px;
-	margin-top:8px;
+#add-new-entry{
+	margin-top:11px;
+	margin-left:10px;
+	margin-right:0;
+}
+
+#clear-database{
+	margin-top:11px;
+	margin-left:10px;
+	margin-right:0;
 }
 
 .results-button-a{
 	display:block;
 	float:left;
-	height:30px;
+	height:37px;
 	color:white;
 	margin-right:10px;
 	font-family:sans-serif;
 	transition:all .2s;
+	overflow:auto;
 }
 
 .results-button-div{
 	background-color:#00BFFF;
 	border-radius:5px;
 	padding:8px;
+	height:21px;
+}
+
+#admin-profile{
+	height:36px;
+	float:right;
+	display:block;
+	margin-right:20px;
+	margin-top:12px;
+	overflow:auto;
+	transition:opacity .5s;
+}
+
+#admin-profile-img{
+	width:30px;
+	display:block;
+	position:relative;
+	top:2px;
+	left:3px;
+}
+
+#profile-img-wrapper{
+	height:36px;
+	width:36px;
+	border-radius:18px;
+	background-color: #00BFFF;
+	float:right;
+	margin-right:10px;
+}
+
+#profile-p{
+	font-family:sans-serif;
+	font-size:14px;
+	float:right;
+	margin-top:10px;
+	color:#00BFFF;
+}
+
+#admin-profile:hover{
+	opacity:.6;
+}
+
+#admin-dropdown-menu{
+	width:190px;
+	height:0px;
+	position:fixed;
+	right:0;
+	background-color:#f1f1f1;
+	transition:height .5s;
+	overflow:hidden;
+}
+
+#admin-dropdown-menu p{
+	font-family:sans-serif;
+	color:#00BFFF;
+}
+
+#admin-dropdown-menu a{
+	display:block;
+	padding:8px;
+	border-left:1px solid #d5d5d5;
+
+	transition:background-color .2s;
+}
+
+#admin-dropdown-menu a:hover{
+	background-color:#F9F9F9;
 }
 
 .results-button-a:hover{
@@ -157,13 +233,13 @@ a{
 #all-search-results-div{
 	margin-left:85px;
 	display:inline-block;
+	max-height:550px;	
+	overflow-y: scroll;
+	overflow-x: hidden;
 }
 
 .column{
 	display:inline-block;
-	max-height:600px;	
-	overflow-y: scroll;
-	overflow-x: hidden;
 	width:630px;
 	float:left;
 }
@@ -181,7 +257,11 @@ a{
 }
 
 .first{
-	margin-top:15px;
+	/*margin-top:15px;*/
+}
+
+.user{
+	margin-bottom:15px;
 }
 
 .search-result-gray{	
@@ -316,7 +396,7 @@ a{
 
 }
 #login-wrapper{
-	height:236px;
+	height:255px;
 }
 
 #password-overlay{
@@ -329,6 +409,18 @@ a{
 
 #password-wrapper{
 	height:236px;
+}
+
+#change-password-overlay{
+	width:1436px;
+	height:750px;
+	position:absolute;
+	top:-750px;
+	transition: top 1s;
+}
+
+#change-password-wrapper{
+	height:300px;
 }
 
 .window-wrapper{
@@ -364,7 +456,8 @@ a{
 	font-size:12px;
 	position:relative;
 	top:40px;
-	display:none;
+	opacity:0;
+	transition:opacity 1s;
 }
 
 #login-error{
@@ -398,8 +491,12 @@ a{
 	margin-top:20px;
 }
 
-#new_password{
-	margin-top:60px;
+#password-error{
+	margin-left:70px;
+}
+
+#old_password{
+	margin-top:45px;
 }
 
 #confirm_password{
@@ -407,6 +504,10 @@ a{
 }
 
 #submit-password{
+	margin-left:200px;
+}
+
+#submit-change-password{
 	margin-left:200px;
 }
 
@@ -423,6 +524,11 @@ a{
 
 #submit-login{
 	margin-left:133px;
+	text-align:center;
+}
+
+#submit-login-div{
+	padding:8px;
 }
 
 .blur-filter {
@@ -442,7 +548,7 @@ a{
 }
 
 #new-entry-wrapper{
-	height:305px;
+	height:320px;
 }
 
 #new-title-input{
@@ -458,7 +564,7 @@ a{
 }
 
 #create-new-error{
-	left:70px;
+	margin-left:70px;
 }
 
 .style-6::-webkit-scrollbar-track

@@ -52,6 +52,7 @@ app.get('/admin/pieces', function(req, res){
 app.get('/user/pieces', function(req, res){
 	var query = req.query;
 	var order = query.filter + ' ' + query.order;
+	console.log(order);
 	db.piece.findAndCountAll({
 		where: {
 			artist_crit: false
@@ -238,12 +239,12 @@ app.put('/pieces/:id', function(req, res){
 								critiqued = true;
 							}
 						});
-						if(critiqued = false){
+						if(critiqued === false){
 							pieces.forEach(function(piece){
-								piece.update({artist_crit: true});
+								piece.update({artist_crit: false});
 							})
 						}
-					})
+					});
 				}
 				if(differences.hasOwnProperty(req.body.filter)){
 					console.log('Sending 200');
@@ -272,12 +273,17 @@ app.post('/login', function(req, res){
 	var encryptedLogin = storage.getItemSync('login');
 	if(encryptedLogin){
 		var masterPassword = crypto.SHA256(body.password).toString();
-		var bytes = crypto.AES.decrypt(encryptedLogin, masterPassword);
-		login = JSON.parse(bytes.toString(crypto.enc.Utf8));
-		if(login.username === body.username && login.password === body.password){
-			storage.setItemSync('time', req.body.time);
-			res.status(200).send('Login successful');
-		} else{
+		try{
+			var bytes = crypto.AES.decrypt(encryptedLogin, masterPassword);
+			login = JSON.parse(bytes.toString(crypto.enc.Utf8));
+			if(login.username === body.username && login.password === body.password){
+				storage.setItemSync('time', req.body.time);
+				res.status(200).send('Login successful');
+			} else{
+				res.status(401).send();
+			}
+
+		} catch(e){
 			res.status(401).send();
 		}
 	} else{
@@ -286,16 +292,39 @@ app.post('/login', function(req, res){
 });
 
 app.post('/password', function(req, res){
-	console.log('Setting new password');
-	var body = _.pick(req.body, 'password');
-	var login = {
+	var body = _.pick(req.body, 'old_password', 'new_password');
+	var new_login = {
 		username: 'admin',
-		password: body.password
+		password: body.new_password
 	};
-	var masterPassword = crypto.SHA256(login.password).toString();
-	var encryptedLogin = crypto.AES.encrypt(JSON.stringify(login), masterPassword);
+	var old_login;
+	var encryptedLogin = storage.getItemSync('login');
+	var masterPassword = crypto.SHA256(body.old_password).toString();
+	var bytes = crypto.AES.decrypt(encryptedLogin, masterPassword);
+	old_login = JSON.parse(bytes.toString(crypto.enc.Utf8));
+	if(old_login.password === body.old_password){
+		masterPassword = crypto.SHA256(new_login.password).toString();
+		encryptedLogin = crypto.AES.encrypt(JSON.stringify(new_login), masterPassword);
+		storage.setItemSync('login', encryptedLogin.toString());
+	}
+	res.status(204).send();	
+});
+
+/*app.post('/password_init', function(req, res){
+	console.log('Setting new password');
+	var new_login = {
+		username: 'admin',
+		password: 'hello'
+	};
+	var masterPassword = crypto.SHA256(new_login.password).toString();
+	var encryptedLogin = crypto.AES.encrypt(JSON.stringify(new_login), masterPassword);
 	storage.setItemSync('login', encryptedLogin.toString());
 	res.status(204).send();	
+});*/
+
+app.get('/logout', function(req, res){
+	storage.setItemSync('time', '0');		
+	res.status(204).send();
 });
 
 //Get /time on load for admin

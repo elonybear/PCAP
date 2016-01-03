@@ -9,11 +9,6 @@ function CheckLoggedInStatus(){
 				$("#login-overlay").css("top", 0);
 				$("#wrapper").addClass("blur-filter");		
 				$("#username").focus();	
-			},
-			404: function(){
-				$("#password-overlay").css("top", "0px");
-				$("#wrapper").addClass("blur-filter");
-				$("#new_password").focus();
 			}
 		},
 		success: function(time, textStatus, jqXHR){
@@ -75,33 +70,29 @@ function loadEntries(){
 				data: JSON.stringify({
 					max_rows: max_rows
 				}),
-				contentType: 'application/json'
+				contentType: 'application/json',
+				success: function(){
+					for(var i = 0; i < piecesArray.length; i++){
+						var piece = piecesArray[i];
+						var entry = createNew(piece.title, piece.artist, piece.facility, piece.location, piece.id, piece.piece_crit);		
+						if(i < max_rows){
+							$('#left-column').append(entry);
+							if(piece.piece_crit === true){
+								$('#left-column').find('.search-result').last().addClass('critiqued');
+								$('#left-column').find('.search-result').last().removeClass('uncritiqued');
+							}
+						}
+						else{
+							$('#right-column').append(entry);
+							if(piece.piece_crit === true){
+								$('#right-column').find('.search-result').last().addClass('critiqued');
+								$('#right-column').find('.search-result').last().removeClass('uncritiqued');
+							}
+						}
+					}
+					hideLoginMenu();
+				}
 			});
-			for(var i = 0; i < piecesArray.length; i++){
-				var piece = piecesArray[i];
-				var entry = createNew(piece.title, piece.artist, piece.facility, piece.location, piece.id, piece.piece_crit);		
-				if(i < max_rows){
-					$('#left-column').append(entry);
-					if(piece.piece_crit === true){
-						$('#left-column').find('.search-result').last().addClass('critiqued');
-						$('#left-column').find('.search-result').last().removeClass('uncritiqued');
-					}
-				}
-				else{
-					$('#right-column').append(entry);
-					if(piece.piece_crit === true){
-						$('#right-column').find('.search-result').last().addClass('critiqued');
-						$('#right-column').find('.search-result').last().removeClass('uncritiqued');
-					}
-				}
-			}
-			if($('#left-column').children().length > 0){
-				$('#left-column').children().first().addClass('first');
-			}	
-			if($('#right-column').children().length > 0){
-				$('#right-column').children().first().addClass('first');
-			}	
-			hideLoginMenu();
 		}
 	});	
 }
@@ -150,8 +141,13 @@ $(document).ready(function(){
 		if(degree){
 			$('.active .triangle-filter').css('transform', 'rotate(' + degree + 'deg)');
 		}
-		CheckLoggedInStatus();
 	}
+	else{
+		$('#piece').addClass('active');
+		$('#piece').removeClass('inactive');
+		$('#piece .triangle-filter').removeClass('inactive-triangle');	
+	}
+	CheckLoggedInStatus();
 });
 
 //Upon successful login, hide meny
@@ -171,6 +167,17 @@ function hidePasswordMenu(){
 	$("#confirm_password").css("box-shadow", "none");
 	$("#new_password").val("");
 	$("#confirm_password").val("");
+}
+
+function hideChangePasswordMenu(){
+	$("#change-password-overlay").css("top","-750px");
+	$("#wrapper").removeClass("blur-filter");
+	$("#new_password").css("box-shadow", "none");
+	$("#confirm_password").css("box-shadow", "none");
+	$("#new_password").val("");
+	$("#confirm_password").val("");
+	$("#old_password").css("box-shadow", "none");
+	$("#old_password").val("");
 }
 
 //Upon clicking the x in the login menu, return to user page
@@ -203,65 +210,16 @@ $("#submit-login").click(function (e) {
 			401: function(){	
 				count++;
 				$("#password").val("");
-				if($("#login-error").css("display") == "none"){
-					$("#login-error").fadeIn();
-					$("#login-wrapper").css("height", "250px");
-				}
-				else{
-					$("#login-error").animate({
-						"color":"#FAAC58"	
-					}, 200, function(){
-						$("#login-error").animate({
-							"color":"#FA5858"
-						});
-					});
-				}
-			},
-			404: function(){
-				
+				$("#login-error").css('opacity', '1');
+				setTimeout(function(){
+					$("#login-error").css('opacity', 0);
+				}, 2000);
 			}
 		}
 	});
-	count++;
 	if(count == 3){
+		hideLoginMenu();
 		window.location = "user.html";	
-	}
-});
-
-$("#submit-password").click(function(e){
-	e.preventDefault();
-	if($("#new_password").val() != $("#confirm_password").val()){
-		//Error message
-		if($("#password-error").css("display") == "none"){
-			$("#password-error").fadeIn();
-			$("#password-wrapper").css("height", "250px");
-		}
-		else{
-			$("#password-error").animate({
-				"color":"#FAAC58"	
-			}, 200, function(){
-				$("#password-error").animate({
-					"color":"#FA5858"
-				});
-			});
-		}
-	}
-	else{
-		console.log('Setting new password');
-		$.ajax({
-			url: 'http://localhost:3000/password',
-			method: 'POST',
-			data: JSON.stringify({
-				password: $('#new_password').val()
-			}),
-			contentType: 'application/json',
-			success: function(){
-				hidePasswordMenu();
-				$("#login-overlay").css("top", 0);
-				$("#wrapper").addClass("blur-filter");		
-				$("#username").focus();	
-			}
-		});
 	}
 });
 
@@ -272,9 +230,81 @@ $(document).keypress(function(e) {
 			$("#submit-login").click();
 		}
 	}
-	else if($("#password-overlay").css("top") != "-750px"){
+	else if($("#change-password-overlay").css('top') != '-750px'){
 		if(e.which == 13){
-			$("#submit-login").click();
+			$('#submit-change-password').click();
 		}
 	}
+});
+
+$('#admin-profile').click(function(e){
+	e.preventDefault();
+	if($('#admin-dropdown-menu').height() > 0){
+		$('#admin-dropdown-menu').css('height', '0');
+		setTimeout(function(){
+			$('#admin-dropdown-menu').css('border-bottom', 'none');
+		}, 500);
+	}	
+	else{  
+		$('#admin-dropdown-menu').css('height', '68px');
+		$('#admin-dropdown-menu').css('border-bottom', '1px solid #d5d5d5');
+	}
+});
+
+
+$('#change-password').click(function(e){		
+	e.preventDefault();
+	$("#change-password-overlay").css("top", 0);
+	$("#wrapper").addClass("blur-filter");		
+	$("#old_password").focus();	
+	$('#admin-dropdown-menu').css('height', '0');
+	setTimeout(function(){
+		$('#admin-dropdown-menu').css('border-bottom', 'none');
+	}, 500);
+});
+
+$('#submit-change-password').click(function(e){
+	e.preventDefault();	
+	if($("#new_password_change").val() != $("#confirm_password").val()){
+		//Error message
+		$("#password-error").css('opacity', '1');
+		setTimeout(function(){
+			$("#password-error").css('opacity', 0);
+		}, 2000);
+	}
+	else{
+		$.ajax({
+			url: 'http://localhost:3000/password',
+			method: 'POST',
+			data: JSON.stringify({
+				old_password: $('#old_password').val(),
+				new_password: $('#new_password_change').val()
+			}),
+			contentType: 'application/json',
+			success: function(){
+				hideChangePasswordMenu();	
+			}
+		});
+	}
+});
+
+$("#change-password-x").click(function(e){
+	e.preventDefault();
+	$("#wrapper").removeClass("blur-filter");
+	$("#change-password-overlay").fadeOut();
+	$(".login-input").val("");		
+	$('#admin-dropdown-menu').css('height', '0');
+	setTimeout(function(){
+		$('#admin-dropdown-menu').css('border-bottom', 'none');
+	}, 500);
+});
+
+$("#logout").click(function(e){
+	$.ajax({
+		url: 'http://localhost:3000/logout',
+		method: 'GET',
+		success: function(){
+			window.location = 'user.html';
+		}
+	});
 });

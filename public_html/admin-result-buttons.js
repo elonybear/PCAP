@@ -193,6 +193,14 @@ $(document).on("click", ".result-button", function(e){ //Click on 'Edit', 'Remov
 							result.find('.institution-input').replaceWith("<p class='search-result-data institution-p'>" + new_facility.val() + "</p>");
 							result.find('.location-input').replaceWith("<p class='search-result-data location-p'>" + new_loc.val() + "</p>");
 							result.next().css('height', '0px');
+							if(updated_piece.piece_crit === true){
+								result.addClass('critiqued');
+								result.removeClass('uncritiqued');
+							}
+							else{
+								result.addClass('uncritiqued');
+								result.removeClass('critiqued');
+							}
 							editing.index = -1;
 						},
 						200: function(){

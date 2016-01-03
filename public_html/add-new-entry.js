@@ -105,87 +105,21 @@ $("#submit-new-entry").click(function(e){
 		statusCode: {
 			500: function(){	
 				console.log("Unsuccessful");	
-				$("#location-error").fadeIn().delay(200).fadeOut();
+				$("#create-new-error").css('opacity', '1');
+				setTimeout(function(){
+					$("#create-new-error").css('opacity', 0);
+				}, 2000);
 			}
 		},
 		success: function(pieceStruct, textStatus, jqXHR){
 		 	var piecesArray = pieceStruct.all_pieces;
 			var new_piece = pieceStruct.new_piece;
 			var entry = createNew(new_piece.title, new_piece.artist, new_piece.facility, new_piece.location, new_piece.id, new_piece.piece_crit);
-			var MAX_COLUMN_SIZE = pieceStruct.max_rows;
-			for(var i = 0; i < piecesArray.length; i++){
-				if(piecesArray[i].id === new_piece.id){
-					var left_col_size = $('#left-column').children().length;
-					var right_col_size = $('#right-column').children().length;
-					if(i === 0){
-						if(left_col_size > 0){
-							$("#left-column").children().first().removeClass('first');
-						}
-						$("#left-column").prepend(entry);
-						$("#left-column").children().first().addClass('first');
-						if(left_col_size + 1 > MAX_COLUMN_SIZE && right_col_size < MAX_COLUMN_SIZE){
-							if(right_col_size > 0){
-								$("#right-column").children().first().removeClass('first');
-							}
-							$('#right-column').prepend($('#left-column').children().last());
-							$("#right-column").children().first().addClass('first');
-						} else if(left_col_size + 1 > MAX_COLUMN_SIZE){
-							MAX_COLUMN_SIZE++;
-						}
-					}
-					else if(i < MAX_COLUMN_SIZE){
-						$(entry).insertAfter($('#left-column').children().eq(i - 1));
-						if(left_col_size + 1 > MAX_COLUMN_SIZE && right_col_size < MAX_COLUMN_SIZE){
-							if(right_col_size > 0){
-								$("#right-column").children().first().removeClass('first');
-							}
-							$('#right-column').prepend($('#left-column').children().last());
-							$("#right-column").children().first().addClass('first');
-						} else if(left_col_size + 1 === MAX_COLUMN_SIZE){
-							MAX_COLUMN_SIZE++;
-						}
-					}
-					else if(i === MAX_COLUMN_SIZE){
-						if(right_col_size < MAX_COLUMN_SIZE){
-							if(right_col_size > 0){
-								$("#right-column").children().first().removeClass('first');	
-							}
-							$("#right-column").prepend(entry);
-							$("#right-column").children().first().addClass('first');		
-						}
-						else{
-							$(entry).insertAfter($('#left-column').children().last());	
-							MAX_COLUMN_SIZE++;
-						}
-					}
-					else if(i > MAX_COLUMN_SIZE){
-						$(entry).insertAfter($('#right-column').children().eq(Math.floor(i/2) - 1));	
-						if(right_col_size + 1 > MAX_COLUMN_SIZE){
-							$('#right-column').children().first().removeClass('first');
-							$($('#right-column').children().first()).insertAfter($('#left-column').children().last());	
-							$('#right-column').children().first().addClass('first');
-							MAX_COLUMN_SIZE++;
-						}
-					}
-					$.ajax({
-						url: 'http://localhost:3000/number',
-						method: 'POST',
-						data: JSON.stringify({
-							max_rows: MAX_COLUMN_SIZE
-						}),
-						contentType: 'application/json',
-						statusCode: {
-							204: function(){
-								console.log('Update max rows successful');
-							}
-						}
-					});
-					break;
-				}
-			}	
-		}
+			var MAX_COLUMN_SIZE = pieceStruct.max_rows * 2;
+			$("#new-entry-x").click();
+			location.reload();
+		} //end success
 	});
-	$("#new-entry-x").click();
 });
 
 $(document).keypress(function(e) {

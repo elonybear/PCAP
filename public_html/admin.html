@@ -6,7 +6,7 @@
 	<meta http-equiv="Content-type" content="text/html; charset=utf-8" />
 	<meta name="viewport" content="width=device-width, initial-scale=1" />
 	<link rel="stylesheet" href="search-results.css"  />
-	<link rel="stylesheet" href="search-home.css"/>
+	<link rel="stylesheet" href="search-home.css"  />
 	<script type="text/javascript" src="http://code.jquery.com/jquery-latest.min.js"></script>
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
 	<script type="text/javascript" src="jquery-ui.js"></script>
@@ -18,17 +18,24 @@
 				<a href="https://www.lsa.umich.edu/pcap"><img id="results-search-logo" src="pcap-search-logo.png"/></a>
 				<input id="results-search-bar" type="text">
 				<a  id="results-search-button-a" href=""><div id="results-search-button-div">Search</div></a>
+				<a class="results-button-a" id="clear-database" href="">
+					<div class="results-button-div" style='font-size:17px'>Clear Database</div>
+				</a>	
+				<a class="results-button-a" id="add-new-entry" href="">
+					<div class="results-button-div" style='font-size:17px'>+ Add New Entry</div>
+				</a>	
 			</div>	
 			<div id="member-buttons-div">
-				<p id="log-in-status">Logged in as admin.</p>
-				<a class="results-button-a" id="add-new-entry" href="">
-					<div class="results-button-div">+ Add New Entry</div>
-				</a>	
-				<a class="results-button-a" href="search-results-user.html">
-					<div class="results-button-div">Log Out</div>
+				<a id='admin-profile' href="search-results-user.html">
+					<p id='profile-p'>admin</p>
+					<div id="profile-img-wrapper"><img src='aboutIcon.png' id='admin-profile-img'></div>
 				</a>	
 			</div>
 		</div>	
+		<div id="admin-dropdown-menu">
+			<a href='' id='change-password'><p>Change password</p></a>
+			<a href='' id='logout'><p>Logout</p></a>
+		</div>
 		<div id="search-results-wrapper-div">
 			<div id="filter-buttons">
 				<a class="filter inactive" id="piece" href="">
@@ -82,14 +89,15 @@
 			</form>
 		</div>
 	</div>
-	<div id='password-overlay'>
-		<div class='window-wrapper' id='password-wrapper'>
-			<a class='x-a' id='login-x' href=''>X</a>
-			<form id='password-form'>
+	<div id='change-password-overlay'>
+		<div class='window-wrapper' id='change-password-wrapper'>
+			<a class='x-a' id='change-password-x' href=''>X</a>
+			<form id='change-password-form'>
 				<p class='error-message' id='password-error'>* ensure passwords match</p>
-				<input id='new_password' class='login-input' type='password' name='new_password' placeholder='Enter new password'>
+				<input id='old_password' class='login-input' type='password' name='new_password' placeholder='Current password'>
+				<input id='new_password_change' class='login-input' type='password' name='new_password' placeholder='New password' style='margin-top:20px'>
 				<input id='confirm_password' class='login-input' type='password' name='confirm_password' placeholder='Confirm password'>
-				<a id='submit-password' class='window-submit button-a' href=''><div class='button-div' id='submit-password-div'>Submit</div></a>
+				<a id='submit-change-password' class='window-submit button-a' href=''><div class='button-div' id='submit-password-div'>Submit</div></a>
 			</form>
 		</div>
 	</div>
