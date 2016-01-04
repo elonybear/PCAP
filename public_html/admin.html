@@ -114,11 +114,24 @@
 				<a id="submit-new-entry" class="window-submit button-a" href=""><div class="button-div">Create</div></a>  
 		</div>
 	</div>
+	<div id="clear-database-overlay">
+		<div class="window-wrapper" id="clear-database-wrapper">
+			<a class="x-a" id="clear-database-x" href="">X</a>					
+			<form id="clear-database-form">
+				<p id='confirm-clear-message'>Confirm with username and password:</p>
+				<p class="error-message" id="clear-database-error">* incorrect username or password</p>
+				<input id="clear-username" class="login-input" type="text" name="username" placeholder="Username">
+				<input id="clear-password" class="login-input" type="password" name="password" placeholder="Password">
+				<a id="submit-clear-database" class="window-submit button-a" href=""><div class="button-div" id="submit-login-div">Submit</div></a>
+			</form>
+		</div>
+	</div>
 	<script type="text/javascript" src="admin-login.js"></script>
 	<script type="text/javascript" src="filter.js"></script>
 	<script type="text/javascript" src="admin-result-buttons.js"></script>
 	<script type="text/javascript" src="add-new-entry.js"></script>
 	<script type="text/javascript" src="search.js"></script>
+	<script type="text/javascript" src="clear-database.js"></script>
 </body>
 </html>
 

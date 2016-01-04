@@ -567,6 +567,42 @@ a{
 	margin-left:70px;
 }
 
+#clear-database-overlay{
+	width:1436px;
+	height:750px;
+	position:absolute;
+	top:0px;
+	display:none;
+}
+#clear-database-wrapper{
+	height:280px;
+}
+
+#submit-clear-database{
+	margin-left:200px;
+}
+
+#clear-username{
+	margin-top:45px;
+}
+
+#clear-password{
+	margin-top:20px;
+}
+
+#clear-database-error{
+	margin-left:70px;
+}
+
+#confirm-clear-message{
+	font-family:sans-serif;
+	width:200px;
+	margin-left:70px;
+	position:relative;
+	top:30px;
+	color:gray;
+}
+
 .style-6::-webkit-scrollbar-track
 {
 	-webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);

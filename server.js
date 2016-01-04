@@ -171,6 +171,32 @@ app.delete('/pieces/:id', function(req, res){
 	})	
 });
 
+app.delete('/all', function(req, res){
+	var body = _.pick(req.body, 'username', 'password');
+	var encryptedLogin = storage.getItemSync('login');
+	var login;
+	if(encryptedLogin){
+		var masterPassword = crypto.SHA256(body.password).toString();
+		try{
+			var bytes = crypto.AES.decrypt(encryptedLogin, masterPassword);
+			login = JSON.parse(bytes.toString(crypto.enc.Utf8));
+			if(login.username === body.username && login.password === body.password){
+				db.sequelize.sync({force: true}).then(function(){
+					res.status(204).send();
+					
+				}, function(){
+					res.status(500).send();
+				});
+			} else{
+				res.status(401).send();
+			}
+
+		} catch(e){
+			res.status(401).send();
+		}
+	} 
+});
+
 app.put('/pieces/:id', function(req, res){
 	var pieceId = parseInt(req.params.id, 10);
 	var body = _.pick(req.body, 'title', 'artist', 'facility', 'location', 'artist_crit', 'piece_crit');

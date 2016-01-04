@@ -74,12 +74,6 @@ $("#new-entry-x").click(function(e){
 	$("#wrapper").removeClass("blur-filter");
 	$("#new-entry-overlay").fadeOut();
 	$(".login-input").val("");	
-	$("#new-entry-form").children("p").each(function(){
-		if($(this).css("display") == "block"){
-			$(this).fadeOut();
-			$("#new-entry-wrapper").css("height", $("#new-entry-wrapper").height() - 14 + "px");
-		}
-	});
 });
 var clicked = 0;
 var filters = ['title_upper', 'artist_upper', 'facility_upper', 'location_upper', 'piece_crit'];
