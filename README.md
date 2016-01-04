@@ -53,5 +53,8 @@ Packages:
 
 ### Next Steps
 
-1. Add 'clear database' functionality
-2. Add change password functionality for administrators
+1. Allow for multiple user accounts
+2. Create 'favoriting' system for users
+3. Allow users to post critiques online
+4. Allow users to post comments for different art pieces and to have users see all comments made to a piece
+5. Allow comments to be made private
