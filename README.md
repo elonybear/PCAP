@@ -59,3 +59,4 @@ Packages:
 3. Allow users to post critiques online
 4. Allow users to post comments for different art pieces and to have users see all comments made to a piece
 5. Allow comments to be made private
+6. Adapt server to work on actual website
