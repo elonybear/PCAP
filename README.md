@@ -36,7 +36,6 @@ Packages:
 - body-parser
 - crypto-js
 - express
-- jsonwebtoken
 - node-persist
 - persist-js
 - pg
@@ -48,8 +47,9 @@ Packages:
 ### Usage
 
 1. Run the server: `node server.js`
-2. In a browser navigate to `http://localhost:3000/admin.html`
+2. Admin: In a browser, navigate to `http://localhost:3000/admin.html`
 3. Add, update, or delete entries
+4. User: In a browser, navigate to `http://localhost:3000/user.html`
 
 ### Next Steps
 
