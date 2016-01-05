@@ -29,8 +29,9 @@ Users and administrators may also search and filter database entries by title, a
 
 Node is required to run this application. 
 
-1. Install node with brew: `brew install node`
-2. Install node.js packages used by this application by running `npm install [package name] --save`
+1. If necessary, install brew: `ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"`
+2. Install node with brew: `brew install node`
+3. Install node.js packages used by this application by running `npm install [package name] --save`
 
 Packages:
 - body-parser
