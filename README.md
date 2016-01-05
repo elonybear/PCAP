@@ -46,10 +46,11 @@ Packages:
 
 ### Usage
 
-1. Run the server: `node server.js`
-2. Admin: In a browser, navigate to `http://localhost:3000/admin.html`
-3. Add, update, or delete entries
-4. User: In a browser, navigate to `http://localhost:3000/user.html`
+1. In the Terminal, navigate to the folder containing the PCAP Database Website files
+2. Run the server: `node server.js`
+3. Admin: In a browser, navigate to `http://localhost:3000/admin.html`
+4. Add, update, or delete entries
+5. User: In a browser, navigate to `http://localhost:3000/user.html`
 
 ### Next Steps
 
