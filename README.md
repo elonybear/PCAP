@@ -5,6 +5,7 @@ This website is used by the University of Michigan Prisoner Creative Arts Projec
 1. Basic Description
 2. Installation
 3. Usage
+4. Next steps
 
 ###Basic Description
 The website allows users to search the PCAP database for art pieces produced by prisoners.
