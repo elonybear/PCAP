@@ -48,6 +48,7 @@ The various packages required to run this server are already installed and locat
 3. Admin: In a browser, navigate to `http://localhost:3000/admin.html` - Username: admin, Password: hello
   
   Change your password
+  
   Add, update, or delete entries
 5. User: In a browser, navigate to `http://localhost:3000/user.html`
 
