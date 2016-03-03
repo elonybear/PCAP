@@ -37,7 +37,7 @@ For Macs:
 
 For Windows:
 
-1. Navigate to this website, which details Node.js installation: http://blog.teamtreehouse.com/install-node-js-npm-windows 
+1. Navigate to this blog post, which details Node.js installation: http://blog.teamtreehouse.com/install-node-js-npm-windows 
 
 The various packages required to run this server are already installed and located in the `node_modules` directory
 
