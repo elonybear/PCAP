@@ -30,8 +30,8 @@ Users and administrators may also search and filter database entries by title, a
 
 Node is required to run this application. 
 
-1. If necessary, install brew: `ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"`
-2. Install node with brew: `brew install node`
+1. If necessary, install brew: `ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"`. This is done in the Terminal application for Mac OSX platforms. 
+2. Install node with brew: `brew install node`. This is also done in the Terminal. 
 3. The various packages required to run this server are already installed and located in the `node_modules` directory
 
 ### Usage
