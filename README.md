@@ -43,7 +43,7 @@ The various packages required to run this server are already installed and locat
 
 ### Usage
 
-1. In the Terminal, navigate to the folder containing the PCAP Database Website files
+1. In the Terminal for Mac OSX or Command Prompt for Windows, navigate to the folder containing the PCAP Database Website files
 2. Run the server: `node server.js`
 3. Admin: In a browser, navigate to `http://localhost:3000/admin.html` - Username: admin, Password: hello
 4. Add, update, or delete entries
