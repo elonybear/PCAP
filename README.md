@@ -32,25 +32,13 @@ Node is required to run this application.
 
 1. If necessary, install brew: `ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"`
 2. Install node with brew: `brew install node`
-3. Install node.js packages used by this application by running `npm install [package name] --save`
-
-Packages:
-- body-parser
-- crypto-js
-- express
-- node-persist
-- persist-js
-- pg
-- pg-hstore
-- sequelize
-- sqlite3
-- underscore
+3. The various packages required to run this server are already installed and located in the `node_modules` directory
 
 ### Usage
 
 1. In the Terminal, navigate to the folder containing the PCAP Database Website files
 2. Run the server: `node server.js`
-3. Admin: In a browser, navigate to `http://localhost:3000/admin.html`
+3. Admin: In a browser, navigate to `http://localhost:3000/admin.html` - Username: admin, Password: hello
 4. Add, update, or delete entries
 5. User: In a browser, navigate to `http://localhost:3000/user.html`
 
