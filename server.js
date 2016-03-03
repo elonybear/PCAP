@@ -263,6 +263,7 @@ app.put('/pieces/:id', function(req, res){
 						pieces.forEach(function(piece){
 							if(piece.piece_crit === true){
 								critiqued = true;
+								return false;
 							}
 						});
 						if(critiqued === false){

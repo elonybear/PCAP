@@ -24,7 +24,10 @@ $('#submit-clear-database').click(function(e){
 		contentType: 'application/json',
 		statusCode: {
 			204: function(){
-				location.reload();
+				$('#left-column').empty();
+				$('#right-column').empty();
+				$('#wrapper').removeClass('blur-filter');
+				$('#clear-database-overlay').fadeOut();
 			},
 			401: function(){	
 				$("#clear-database-error").css('opacity', '1');

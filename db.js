@@ -12,7 +12,4 @@ db.piece = sequelize.import(__dirname + '/models/piece.js');
 db.sequelize = sequelize;
 db.Sequelize = Sequelize;
 
-//Set artist-piece associations
-//Many pieces associated with one artist
-//One artist associated with many pieces
 module.exports = db;
