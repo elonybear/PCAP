@@ -84,7 +84,7 @@ $("#submit-new-entry").click(function(e){
 		url = 'http://localhost:3000/pieces';
 	}
 	else {
-		url = 'pcap-database.herokuapp.com/pieces';
+		url = 'http://pcap-database.herokuapp.com/pieces';
 	}
 	$.ajax({
 		url: url,
