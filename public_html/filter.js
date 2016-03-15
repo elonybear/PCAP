@@ -1,7 +1,7 @@
 // change/flip active filter
-function geturlvars(){
+function getUrlVars(){
 	var vars = [], hash;
-	var hashes = window.location.href.slice(window.location.href.indexof('?') + 1).split('&');
+	var hashes = window.location.href.slice(window.location.href.indexOf('?') + 1).split('&');
 	for(var i = 0; i < hashes.length; i++){
 		hash = hashes[i].split('=');
 		vars.push(hash[0]);
@@ -11,10 +11,10 @@ function geturlvars(){
 }
 
 var active = 0;
-var flip = geturlvars['degree'] || 0;
+var flip = getUrlVars['degree'] || 0;
 $(".filter").click(function(e){
-	e.preventdefault();
-	var file = window.location.href.substr((window.location.href.lastindexof('/') + 1));
+	e.preventDefault();
+	var file = window.location.href.substr((window.location.href.lastIndexOf('/') + 1));
 	file = file.split('?')[0];
 	var url;
 	if(location.hostname == 'localhost') {
