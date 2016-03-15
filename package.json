@@ -12,7 +12,7 @@
     "jsonwebtoken": "^5.4.1",
     "node-persist": "0.0.8",
     "persist-js": "^0.3.1",
-    "pg": "^4.4.3",
+    "pg": "^4.5.1",
     "pg-hstore": "^2.3.2",
     "sequelize": "^3.15.1",
     "sequelize-virtual-fields": "^0.3.6",
