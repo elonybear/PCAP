@@ -1,8 +1,15 @@
 //Slide down login menu upon page load
 
 function CheckLoggedInStatus(){
+	var url;
+	if(location.hostname == 'localhost') {
+		url = 'http://localhost:3000/time';
+	}
+	else {
+		url = 'http://pcap-database.herokuapp.com/time';
+	}
 	$.ajax({
-		url: 'http://localhost:3000/time',
+		url: url,
 		method: 'GET',
 		statusCode: {
 			401: function(){
@@ -19,7 +26,7 @@ function CheckLoggedInStatus(){
 		   		&& date.getDay() === now.getDay() 
 				&& (now.getTime() - date.getTime()) < 1000*3600){
 					$.ajax({
-						url: 'http://localhost:3000/time',
+						url: url,
 						method: 'POST',
 						data: JSON.stringify({
 							time: now
@@ -44,15 +51,23 @@ function CheckLoggedInStatus(){
 function loadEntries(){
 	var active_filter = $(".active");
 	var degrees = parseInt(getUrlVars()['degree']);
-	var url = 'http://localhost:3000/admin/pieces?filter=' + filters[$('.filter').index(active_filter)];
+	var url_load;
+	if(location.hostname == 'localhost') {
+		url_load = 'http://localhost:3000/';
+	}
+	else {
+		url_load = 'http://pcap-database.herokuapp.com/';
+	}
+	
+	url_load += 'admin/pieces?filter=' + filters[$('.filter').index(active_filter)];
 	if(degrees){
-		url += '&order=' + order[Math.floor(degrees / 180)];
+		url_load += '&order=' + order[Math.floor(degrees / 180)];
 	}
 	else{
-		url += '&order=ASC';
+		url_load += '&order=ASC';
 	}
 	$.ajax({
-		url: url,
+		url: url_load,
 		methods: 'GET',
 		statusCode: {
 			500: function(){
@@ -64,8 +79,15 @@ function loadEntries(){
 			if(max_rows === 0){
 				max_rows = 1;
 			}
+			var url_post_number;
+			if(location.hostname == 'localhost') {
+				url_post_number = 'http://localhost:3000/number';
+			}
+			else {
+				url_post_number = 'http://pcap-database.herokuapp.com/number';
+			}
 			$.ajax({
-				url: 'http://localhost:3000/number',
+				url: url_post_number,
 				method: 'POST',
 				data: JSON.stringify({
 					max_rows: max_rows

@@ -1,7 +1,3 @@
-function reload(filter, order){
-	
-}
-
 var MAX_COLUMN_SIZE = 1;
 
 function getRotationDegrees(obj) {
@@ -83,7 +79,13 @@ $("#submit-new-entry").click(function(e){
 	e.preventDefault();
 	console.log("Submitting new entry");
 	var active_filter = $(".active");
-	var url = 'http://localhost:3000/pieces'
+	var url;
+	if(location.hostname == "localhost"){
+		url = 'http://localhost:3000/pieces';
+	}
+	else {
+		url = 'pcap-database.herokuapp.com/pieces';
+	}
 	$.ajax({
 		url: url,
 		method: 'POST',
