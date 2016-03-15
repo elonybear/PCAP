@@ -19,7 +19,13 @@ function initiateSearch(user){
 	var active_filter = $('.active');
 	if($("#results-search-bar").val()){
 		console.log('Search bar not empty');
-		var url = 'http://localhost:3000/search?user=';
+		var url;
+		if(location.hostname == 'localhost') {
+			url = 'http://localhost:3000/search?user=';
+		}
+		else {
+			url = 'http://pcap-database.herokuapp.com/search?user=';
+		}
 		if(user === 'true'){
 			url += 'user';
 		}

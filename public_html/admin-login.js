@@ -216,8 +216,15 @@ var order = ['ASC', 'DESC'];
 
 $("#submit-login").click(function (e) {
 	e.preventDefault();
+	var url;
+	if(location.hostname == 'localhost') {
+		url = 'http://localhost:3000/login';
+	}
+	else {
+		url = 'http://pcap-database.herokuapp.com/login';
+	}
 	$.ajax({
-		url: 'http://localhost:3000/login',
+		url: url,
 		method: 'POST',
 		data: JSON.stringify({
 			username: $("#username").val(),
@@ -295,8 +302,15 @@ $('#submit-change-password').click(function(e){
 		}, 2000);
 	}
 	else{
+		var url;
+		if(location.hostname == 'localhost') {
+			url = 'http://localhost:3000/password';
+		}
+		else {
+			url = 'http://pcap-database.herokuapp.com/password';
+		}
 		$.ajax({
-			url: 'http://localhost:3000/password',
+			url: url,
 			method: 'POST',
 			data: JSON.stringify({
 				old_password: $('#old_password').val(),
@@ -322,8 +336,15 @@ $("#change-password-x").click(function(e){
 });
 
 $("#logout").click(function(e){
+	var url;
+	if(location.hostname == 'localhost') {
+		url = 'http://localhost:3000/logout';
+	}
+	else {
+		url = 'http://pcap-database.herokuapp.com/logout';
+	}
 	$.ajax({
-		url: 'http://localhost:3000/logout',
+		url: url,
 		method: 'GET',
 		success: function(){
 			window.location = 'user.html';

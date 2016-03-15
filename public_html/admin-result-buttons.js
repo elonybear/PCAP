@@ -58,8 +58,15 @@ $(document).on("click", ".result-button", function(e){ //Click on 'Edit', 'Remov
 			if($(this).hasClass("search-result")){
 				var result = $(this);
 				var index = $(this).children('.result-id').val();
+				var url;
+				if(location.hostname == 'localhost') {
+					url = 'http://localhost:3000/pieces/';
+				}
+				else {
+					url = 'http://pcap-database.herokuapp.com/pieces/';
+				}
 				$.ajax({
-					url: 'http://localhost:3000/pieces/' + index,
+					url: url + index,
 					method: 'DELETE',
 					statusCode: {
 						204: function(){
@@ -174,9 +181,15 @@ $(document).on("click", ".result-button", function(e){ //Click on 'Edit', 'Remov
 				}
 
 				console.log(updated_piece);
-
+				var url;
+				if(location.hostname == 'localhost') {
+					url = 'http://localhost:3000/pieces';
+				}
+				else {
+					url = 'http://pcap-database.herokuapp.com/pieces/';
+				}
 				$.ajax({
-					url: 'http://localhost:3000/pieces/' + index,
+					url: url + index,
 					method: 'PUT',
 					data: JSON.stringify(updated_piece),
 					contentType: 'application/json',

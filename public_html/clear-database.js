@@ -14,8 +14,15 @@ $('#clear-database-x').click(function(e){
 
 $('#submit-clear-database').click(function(e){
 	e.preventDefault();
+	var url;
+	if(location.hostname == 'localhost') {
+		url = 'http://localhost:3000/all';
+	}
+	else {
+		url = 'http://pcap-database.herokuapp.com/all';
+	}
 	$.ajax({
-		url: 'http://localhost:3000/all',
+		url: url,
 		method: 'DELETE',
 		data: JSON.stringify({
 			username: $('#clear-username').val(),

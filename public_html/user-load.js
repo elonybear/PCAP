@@ -34,7 +34,13 @@ function createNew(title, artist, facility, location, id){
 function loadEntries(){
 	var active_filter = $('.active');
 	var degrees = parseInt(getUrlVars()['degree']);
-	var url = 'http://localhost:3000/user/pieces?filter=' + filters[$('.filter').index(active_filter)];
+	var url;
+	if(location.hostname == 'localhost') {
+		url = 'http://localhost:3000/user/pieces?filter=' + filters[$('.filter').index(active_filter)];
+	}
+	else {
+		url = 'http://pcap-database.herokuapp.com/user/pieces?filter=' + filters[$('.filter').index(active_filter)];
+	}
 	if(degrees){
 		url += '&order=' + order[Math.floor(degrees / 180)];
 	}
