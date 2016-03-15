@@ -30,16 +30,24 @@ Users and administrators may also search and filter database entries by title, a
 
 Node is required to run this application. 
 
-1. If necessary, install brew: `ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"`
-2. Install node with brew: `brew install node`
-3. The various packages required to run this server are already installed and located in the `node_modules` directory
+For Macs:
+
+1. If necessary, install brew: `ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"`. This is done in the Terminal application for Mac OSX platforms. 
+2. Install node with brew: `brew install node`. This is also done in the Terminal. 
+
+For Windows:
+
+1. Navigate to this blog post, which details Node.js installation: http://blog.teamtreehouse.com/install-node-js-npm-windows 
+
+The various packages required to run this server are already installed and located in the `node_modules` directory
 
 ### Usage
 
-1. In the Terminal, navigate to the folder containing the PCAP Database Website files
+1. In the Terminal for Mac OSX or Command Prompt for Windows, navigate to the folder containing the PCAP Database Website files
 2. Run the server: `node server.js`
 3. Admin: In a browser, navigate to `http://localhost:3000/admin.html` - Username: admin, Password: hello
-4. Add, update, or delete entries
+  
+  Change your password and add, update, or delete entries
 5. User: In a browser, navigate to `http://localhost:3000/user.html`
 
 ### Next Steps
