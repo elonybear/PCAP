@@ -8,7 +8,7 @@ var storage = require('node-persist');
 var jsdiff = require('diff');
 
 var app = express();
-var PORT = 3000;
+var PORT = process.env.PORT || 3000;
 app.use(bodyParser.json());
 app.use(express.static(__dirname + '/public_html'));
 storage.initSync();
