@@ -9,6 +9,7 @@
     "crypto-js": "^3.1.5",
     "diff": "^2.2.1",
     "express": "^4.13.3",
+    "google-spreadsheet": "^1.1.4",
     "jsonwebtoken": "^5.4.1",
     "node-persist": "0.0.8",
     "persist-js": "^0.3.1",

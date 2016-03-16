@@ -13,12 +13,12 @@ a{
 	background-color:#F1F1F1;
 	position:fixed;
 	top:0px !important;
+	border-bottom:1px solid #D5D5D5;
 }
 
 #results-search-bar-div{
 	float:left;
 	width:1245px;
-	border-bottom:1px solid #D5D5D5;
 }
 
 #results-search-logo{
@@ -69,9 +69,8 @@ a{
 /*Particular to admin*/
 #member-buttons-div{
 	float:right;
-	width:190px;
+	width:124px;
 	height:60px;
-	border-bottom:1px solid #D5D5D5;
 }
 
 #add-new-entry{
