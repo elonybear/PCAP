@@ -35,14 +35,12 @@ module.exports = function(sequelize, DataTypes) {
 		},
 		location: {
 			type: DataTypes.STRING,
-			allowNull: true,
 			validate: {
 				len: [1]
 			}
 		},
 		location_upper: {
 			type: DataTypes.STRING,
-			allowNull: true,
 		},
 		artist_crit: {
 			type: DataTypes.BOOLEAN,

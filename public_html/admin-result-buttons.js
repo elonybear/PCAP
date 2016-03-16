@@ -183,7 +183,7 @@ $(document).on("click", ".result-button", function(e){ //Click on 'Edit', 'Remov
 				console.log(updated_piece);
 				var url;
 				if(location.hostname == 'localhost') {
-					url = 'http://localhost:3000/pieces';
+					url = 'http://localhost:3000/pieces/';
 				}
 				else {
 					url = 'http://pcap-database.herokuapp.com/pieces/';

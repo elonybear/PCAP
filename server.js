@@ -6,6 +6,8 @@ var bcrypt = require('bcrypt');
 var crypto = require('crypto-js');
 var storage = require('node-persist');
 var jsdiff = require('diff');
+var GoogleSpreadsheet = require('google-spreadsheet');
+var fs = require('fs');
 
 var app = express();
 var PORT = process.env.PORT || 3000;
@@ -123,8 +125,6 @@ app.post('/pieces', function(req, res){
 		artist_upper: body.artist.toUpperCase(),
 		facility: body.facility,
 		facility_upper: body.facility.toUpperCase(),
-		location: body.location,
-		location_upper: body.location.toUpperCase(),
 	};
 	console.log(new_piece.artist_upper);
 	db.piece.findOne({
@@ -151,6 +151,18 @@ app.post('/pieces', function(req, res){
 			res.status(500).json(e);
 		});
 	});
+});
+
+app.post('/upload', function(req, res){
+	console.log('Received file upload request');
+	fs.readFile(req.files.displayImage.path, function(err, data){
+		if(err){
+			console.log(err);
+		}
+		else {
+			console.log(data);
+		}
+	})	
 });
 
 app.delete('/pieces/:id', function(req, res){

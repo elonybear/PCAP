@@ -376,6 +376,7 @@ a{
 
 .institution-input, .location-input{
 	font-size:12px;
+	min-height:16px;
 }
 
 .location-input{
@@ -547,7 +548,7 @@ a{
 }
 
 #new-entry-wrapper{
-	height:320px;
+	height:272px;
 }
 
 #new-title-input{

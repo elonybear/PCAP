@@ -34,7 +34,7 @@ function createNew(title, artist, facility, loc, id, piece_crit){
 					"<div>" +
 						"<p class='search-result-data artist-p'>" + artist + "</p>" +
 						"<p class='search-result-data institution-p'>" + facility + "</p>" +
-						"<p class='search-result-data location-p'>" + loc + "</p>" +
+						"<p class='search-result-data location-p'></p>" +
 						"<div class='clearer'></div>" +
 					"</div>" +
 					"<div class='result-buttons'>" +
@@ -93,7 +93,6 @@ $("#submit-new-entry").click(function(e){
 			title: $("#new-title-input").val(),
 			artist: $("#new-artist-input").val(),
 			facility: $("#new-institution-input").val(),
-			location: $("#new-location-input").val(),
 			filter: filters[$('.filter').index(active_filter)],
 			order: order[(getRotationDegrees($('.active')) / 180) % 2]
 		}),

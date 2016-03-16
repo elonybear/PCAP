@@ -336,6 +336,7 @@ $("#change-password-x").click(function(e){
 });
 
 $("#logout").click(function(e){
+	e.preventDefault();
 	var url;
 	if(location.hostname == 'localhost') {
 		url = 'http://localhost:3000/logout';

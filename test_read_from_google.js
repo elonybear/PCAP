@@ -1,5 +1,5 @@
 var GoogleSpreadsheet = require('google-spreadsheet');
-var my_sheet = new GoogleSpreadsheet('159fg9BkMpICqpatfbPBMo0AWy3pjW57ItqBc-AFF4m8');
+var my_sheet = new GoogleSpreadsheet('1G0knhyWWjhSumNIQMfOJMYK1q911v-4aW2SbsdDl3vM');
 
 var creds = {
 	client_email: 'pcap-1251@appspot.gserviceaccount.com',
@@ -12,7 +12,7 @@ my_sheet.useServiceAccountAuth(creds, function(err){
 		sheet_info.worksheets.forEach(function(sheet){
 			sheet.getRows(function(err, rows){
 				rows.forEach(function(row){
-					console.log(row.name);
+					console.log(row.title + ' ' + row.artistnameforlabel + ' ' + row.facilitywhenartworksubmitted);
 				});
 			});
 		})
