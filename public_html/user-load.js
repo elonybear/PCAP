@@ -1,4 +1,4 @@
-var filters = ['title_upper', 'artist_upper', 'facility_upper', 'location_upper'];
+var filters = ['title_upper', 'artist_upper'];
 var order = ['ASC', 'DESC'];
 
 function getUrlVars(){

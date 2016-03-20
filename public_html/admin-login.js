@@ -226,7 +226,7 @@ $("#login-x").click(function(e){
 //Submit login - 3 unsuccessful returns to user page
 //Successful login hides menu
 var count = 0;
-var filters = ['title_upper', 'artist_upper', 'facility_upper', 'location_upper'];
+var filters = ['title_upper', 'artist_upper', 'piece_crit'];
 var order = ['ASC', 'DESC'];
 
 $("#submit-login").click(function (e) {

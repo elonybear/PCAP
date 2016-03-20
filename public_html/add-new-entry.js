@@ -83,7 +83,7 @@ $("#new-entry-x").click(function(e){
 	$("#add-wrapper input").val("");
 });
 var clicked = 0;
-var filters = ['title_upper', 'artist_upper', 'facility_upper', 'location_upper', 'piece_crit'];
+var filters = ['title_upper', 'artist_upper', 'piece_crit'];
 var order = ['ASC', 'DESC'];
 
 $("#submit-new-entry").click(function(e){
