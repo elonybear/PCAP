@@ -155,7 +155,7 @@ app.post('/upload', function(req, res){
 						db.piece.create(new_piece).then(function(piece){
 							num++;
 							console.log(num);
-							if(num == 614){
+							if(num == 15){
 								var order = "title_upper ASC";
 								db.piece.findAll({
 									order: order
