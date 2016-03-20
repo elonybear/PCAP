@@ -133,7 +133,7 @@ app.post('/upload', function(req, res){
 			var num = 0;
 			sheet_info.worksheets[0].getRows(function(err, rows){
 				//rows.forEach(function(row){
-				for(int i = 0; i < 15; i++){
+				for(var i = 0; i < 15; i++){
 					var row = rows[i];
 					if(row.artistnameforlabel){
 						var new_piece = {
