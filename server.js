@@ -87,10 +87,10 @@ app.get('/search', function(req, res){
 		var q_upper = query.q.toUpperCase();
 		where = { 
 			$or: [{
-				title: {
+				title_upper: {
 					$like: '%' + q_upper + '%'
 				}},
-				{  artist: {
+				{  artist_upper: {
 					$like: '%' + q_upper + '%'
 				}
 			}]	
