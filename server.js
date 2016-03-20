@@ -132,7 +132,9 @@ app.post('/upload', function(req, res){
 			console.log(sheet_info.worksheets.length);
 			var num = 0;
 			sheet_info.worksheets[0].getRows(function(err, rows){
-				rows.forEach(function(row){
+				//rows.forEach(function(row){
+				for(int i = 0; i < 15; i++){
+					var row = rows[i];
 					if(row.artistnameforlabel){
 						var new_piece = {
 							title: row.title,
@@ -171,7 +173,8 @@ app.post('/upload', function(req, res){
 							res.status(500).json(e);
 						});
 					}
-				});
+				}
+				//});
 			});
 		});
 	});

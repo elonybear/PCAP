@@ -123,8 +123,8 @@ function loadEntries(){
 		url: url_load,
 		methods: 'GET',
 		statusCode: {
-			500: function(){
-				console.log('Server error');
+			500: function(e){
+				console.log(e);
 			}
 		},
 		success: function(piecesArray, textStatus, jqXHR){
