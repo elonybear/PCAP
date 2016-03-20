@@ -48,32 +48,59 @@ function initiateSearch(user){
 				piecesArray.forEach(function(piece){
 					console.log(piece.title + ' ' + piece.artist);
 				});
-				$('#all-search-results-div').children().each(function(){
-					$(this).find('.search-result').each(function(){
-						var i = 0;
-						for(; i < piecesArray.length; i++){
-							if(piecesArray[i].id.toString() === $(this).children('.result-id').val()){
-								$(this).css('display', 'block');
-								$(this).next().css('display', 'block');
-								break;
+				if(user && user === 'true'){
+					$('#all-search-results-div').children().each(function(){
+						$(this).find('.search-result').each(function(){
+							var i = 0;
+							for(; i < piecesArray.length; i++){
+								if(piecesArray[i].id.toString() === $(this).children('.result-id').val()){
+									$(this).css('display', 'block');
+									$(this).next().css('display', 'block');
+									break;
+								}
 							}
-						}
-						if(i === piecesArray.length){
-							$(this).css('display', 'none');
-							$(this).next().css('display', 'none');
-						}	
+							if(i === piecesArray.length){
+								$(this).css('display', 'none');
+								$(this).next().css('display', 'none');
+							}	
+						});
 					});
-				});
+				}
+				else {
+					$('#all-search-results-div').children().each(function(){
+						$(this).find('.search-result').each(function(){
+							var i = 0;
+							for(; i < piecesArray.length; i++){
+								if(piecesArray[i].id.toString() === $(this).children('.result-id').val()){
+									$(this).css('display', 'block');
+									break;
+								}
+							}
+							if(i === piecesArray.length){
+								$(this).css('display', 'none');
+							}	
+						});
+					});
+				}
 			}
 		})
 	}
 	else{
-		$('#all-search-results-div').children().each(function(){
-			$(this).find('.search-result').each(function(){
-				$(this).css('display', 'block');		
-				$(this).next().css('display', 'block');
-			})
-		});
+		if(user && user === 'true'){
+			$('#all-search-results-div').children().each(function(){
+				$(this).find('.search-result').each(function(){
+					$(this).css('display', 'block');		
+					$(this).next().css('display', 'block');
+				})
+			});
+		}
+		else {
+			$('#all-search-results-div').children().each(function(){
+				$(this).find('.search-result').each(function(){
+					$(this).css('display', 'block');
+				})
+			});
+		}
 	}
 }
 
