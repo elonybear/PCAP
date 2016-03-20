@@ -91,9 +91,6 @@ app.get('/search', function(req, res){
 				}},
 				{  artist: {
 					$like: '%' + query.q + '%'
-				}},
-				{  facility: {
-					$like: '%' + query.q + '%'
 				}
 			}]	
 		}
