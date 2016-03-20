@@ -84,13 +84,14 @@ app.get('/search', function(req, res){
 	var where = {};
 	var order = query.filter + ' ' + query.order;
 	if(query.hasOwnProperty('q') && query.q.length > 0){
+		var q = query.q.toUpperCase();
 		where = { 
 			$or: [{
 				title: {
-					$like: '%' + query.q + '%'
+					$like: '%' + q + '%'
 				}},
 				{  artist: {
-					$like: '%' + query.q + '%'
+					$like: '%' + q + '%'
 				}
 			}]	
 		}
