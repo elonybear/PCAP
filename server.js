@@ -133,7 +133,7 @@ app.post('/upload', function(req, res){
 			var num = 0;
 			sheet_info.worksheets[0].getRows(function(err, rows){
 				//rows.forEach(function(row){
-				for(var i = 0; i < 15; i++){
+				for(var i = 0; i < 5; i++){
 					var row = rows[i];
 					if(row.artistnameforlabel){
 						var new_piece = {
@@ -155,7 +155,7 @@ app.post('/upload', function(req, res){
 						db.piece.create(new_piece).then(function(piece){
 							num++;
 							console.log(num);
-							if(num == 15){
+							if(num == 5){
 								var order = "title_upper ASC";
 								db.piece.findAll({
 									order: order
