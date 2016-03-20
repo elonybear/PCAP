@@ -16,6 +16,7 @@ function getRotationDegrees(obj) {
 }
 
 function initiateSearch(user){	
+	console.log(user);
 	var active_filter = $('.active');
 	if($("#results-search-bar").val()){
 		console.log('Search bar not empty');
@@ -26,7 +27,7 @@ function initiateSearch(user){
 		else {
 			url = 'http://pcap.herokuapp.com/search?user=';
 		}
-		if(user === 'true'){
+		if(user == true){
 			url += 'user';
 		}
 		else{
@@ -45,7 +46,8 @@ function initiateSearch(user){
 				}
 			},
 			success: function(piecesArray, textStatus, jqXHR){
-				if(user === 'true'){
+				if(user == true){
+					console.log('User page');
 					$('#all-search-results-div').children().each(function(){
 						$(this).find('.search-result').each(function(){
 							var i = 0;
@@ -64,6 +66,7 @@ function initiateSearch(user){
 					});
 				}
 				else {
+					console.log('admin page');
 					$('#all-search-results-div').children().each(function(){
 						$(this).find('.search-result').each(function(){
 							var i = 0;
@@ -83,7 +86,7 @@ function initiateSearch(user){
 		})
 	}
 	else{
-		if(user === 'true'){
+		if(user == true){
 			$('#all-search-results-div').children().each(function(){
 				$(this).find('.search-result').each(function(){
 					$(this).css('display', 'block');		
@@ -105,15 +108,14 @@ $(document).keyup(function(e){
 	if($('#results-search-bar').is(':focus')){
 		e.preventDefault();
 		console.log(window.location.pathname);
-		initiateSearch(window.location.pathname === '/user.html');	
+		initiateSearch(window.location.pathname == '/user.html');	
 	}
 });
 
 $('#results-search-button-a').on('click', function(e){
 	e.preventDefault();
 	console.log('Search initiated');
-	console.log(window.location.pathname);
-	initiateSearch(window.location.pathname === '/user.html');
+	initiateSearch(window.location.pathname == '/user.html');
 });
 
 $(document).keypress(function(e){
