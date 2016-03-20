@@ -24,7 +24,7 @@ function initiateSearch(user){
 			url = 'http://localhost:3000/search?user=';
 		}
 		else {
-			url = 'http://pcap-database.herokuapp.com/search?user=';
+			url = 'http://pcap.herokuapp.com/search?user=';
 		}
 		if(user === 'true'){
 			url += 'user';

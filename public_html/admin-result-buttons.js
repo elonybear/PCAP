@@ -63,7 +63,7 @@ $(document).on("click", ".result-button", function(e){ //Click on 'Edit', 'Remov
 					url = 'http://localhost:3000/pieces/';
 				}
 				else {
-					url = 'http://pcap-database.herokuapp.com/pieces/';
+					url = 'http://pcap.herokuapp.com/pieces/';
 				}
 				$.ajax({
 					url: url + index,
@@ -174,7 +174,7 @@ $(document).on("click", ".result-button", function(e){ //Click on 'Edit', 'Remov
 					url = 'http://localhost:3000/pieces/';
 				}
 				else {
-					url = 'http://pcap-database.herokuapp.com/pieces/';
+					url = 'http://pcap.herokuapp.com/pieces/';
 				}
 				$.ajax({
 					url: url + index,
@@ -238,7 +238,7 @@ $(document).on("click", ".result-button", function(e){ //Click on 'Edit', 'Remov
 					url = "http://localhost:3000/remove-critique/";
 				}
 				else {
-					url = "http://pcap-database.herokuapp.com/remove-critique/";
+					url = "http://pcap.herokuapp.com/remove-critique/";
 				}
 				$.ajax({
 					url: url + index,

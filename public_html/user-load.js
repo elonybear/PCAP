@@ -43,7 +43,7 @@ function loadEntries(){
 		url = 'http://localhost:3000/user/pieces?filter=' + filters[$('.filter').index(active_filter)];
 	}
 	else {
-		url = 'http://pcap-database.herokuapp.com/user/pieces?filter=' + filters[$('.filter').index(active_filter)];
+		url = 'http://pcap.herokuapp.com/user/pieces?filter=' + filters[$('.filter').index(active_filter)];
 	}
 	if(degrees){
 		url += '&order=' + order[Math.floor(degrees / 180)];

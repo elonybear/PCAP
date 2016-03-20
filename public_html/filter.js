@@ -21,7 +21,7 @@ $(".filter").click(function(e){
 		url = 'http://localhost:3000/' + file + '?filter=';
 	}
 	else {
-		url = 'http://pcap-database.herokuapp.com/' + file + '?filter=';
+		url = 'http://pcap.herokuapp.com/' + file + '?filter=';
 	}
 	if($(this).hasClass('active')){
 		var query = getUrlVars();

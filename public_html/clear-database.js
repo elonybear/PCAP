@@ -21,7 +21,7 @@ $('#submit-clear-database').click(function(e){
 		url = 'http://localhost:3000/all';
 	}
 	else {
-		url = 'http://pcap-database.herokuapp.com/all';
+		url = 'http://pcap.herokuapp.com/all';
 	}
 	$.ajax({
 		url: url,

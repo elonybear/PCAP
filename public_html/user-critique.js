@@ -50,7 +50,7 @@ $(document).on('click', '.user-critique-submit', function(event){
 		url = "http://localhost:3000/critique/";
 	}
 	else {
-		url = "http://pcap-database.herokuapp.com/critique/";
+		url = "http://pcap.herokuapp.com/critique/";
 	}
 	var id = $(this).parent().prev().children('.result-id').val();
 	$.ajax({
