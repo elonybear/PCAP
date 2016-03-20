@@ -22,7 +22,7 @@ a{
 
 #results-search-bar-div{
 	float:left;
-	width:1328px;
+	width:975px;
 }
 
 #results-search-logo{
@@ -784,4 +784,87 @@ a{
 	float:right;
 	margin-right:12px;
 	font-family:sans-serif;
+}
+
+#progress-bar-div {
+	height:40px;
+	position:absolute;
+	width:664px;
+	top:50%;
+	margin-top:-30px;
+	border:1px solid #c2c2c2;
+	background-color:white;
+	border-radius:10px;
+	left:50%;
+	margin-left:-332px;
+	display:none;
+}
+
+#progress-bar-container {
+	width:614px;
+	margin:0 auto;
+	margin-top:3px;
+	background: -webkit-linear-gradient(to right, #E6E6E6, #C2C2C2); /* For Safari 5.1 to 6.0 */
+  	background: -o-linear-gradient(to right, #E6E6E6, #C2C2C2); /* For Opera 11.1 to 12.0 */
+  	background: -moz-linear-gradient(to right, #E6E6E6, #C2C2C2); /* For Firefox 3.6 to 15 */
+  	background: linear-gradient(to right, #E6E6E6, #C2C2C2); /* Standard syntax */
+	border-radius:5px;
+}
+
+#progress-bar {
+	height:10px;
+	width:0px;
+	background-color: #00BFFF;	
+	background-image: -webkit-linear-gradient(45deg,
+  	rgba(255, 255, 255, .2) 25%,
+  	transparent 25%,
+  	transparent 50%,
+  	rgba(255, 255, 255, .2) 50%,
+  	rgba(255, 255, 255, .2) 75%,
+  	transparent 75%,
+  	transparent);
+  	border-radius:5px;
+  	overflow:hidden;
+  	transition:width .5s
+}
+
+.loading {
+  font-size: 12px;
+  font-family:sans-serif;
+  font-style:oblique;
+  color:#7B7B7B;
+  margin-left:28px;
+  margin-top:5px;
+}
+
+.loading:after {
+  overflow: hidden;
+  display: inline-block;
+  vertical-align: bottom;
+  -webkit-animation: ellipsis steps(4,end) 900ms infinite;      
+  animation: ellipsis steps(4,end) 900ms infinite;
+  content: "\2026"; /* ascii code for the ellipsis character */
+  width: 0px;
+}
+
+#progress-bar-div p {
+	font-size:14px;
+  	font-family:sans-serif;
+  	font-style:oblique;
+ 	color:#7B7B7B;
+ 	display:none;
+ 	margin-left:28px;
+ 	margin-top:11px;
+}
+
+@keyframes ellipsis {
+  to {
+    width: 1.25em;    
+  }
+}
+
+@-webkit-keyframes ellipsis {
+  to {
+    width: 1.25em;    
+  }
 }

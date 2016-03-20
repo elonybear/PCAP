@@ -49,7 +49,8 @@ $("#add-arrow").click(
 $("#upload").click(
 	function(event){
 		event.preventDefault();
-		$("#update-database-x").click();
+		$("#update-wrapper").css("right", "-350px");
+		$("#progress-bar-div").fadeIn();
 		var url;
 		if(location.hostname == "localhost"){
 			url = "http://localhost:3000/upload";
@@ -58,18 +59,45 @@ $("#upload").click(
 			url = "http://pcap.herokuapp.com/upload";
 		}
 		console.log("Posting");
-		$.ajax({
-			url: url,
-			method: 'POST',
-			statusCode : {
-				200: function(){
-					loadEntries();
-				},
-				500: function(err){
-					console.log(err);
-				}
+		var max = 615;
+		var step = 15;
+		var num;
+		var recur_load = function(i){
+			num = i || 0;
+			if(num < max / step){
+				$.ajax({
+					url: url,
+					method: 'POST',
+					data: JSON.stringify({
+						start: num*step,
+						step: step
+					}),
+					contentType: 'application/json',
+					statusCode : {
+						204: function(){
+							$("#progress-bar").css("width", $("#progress-bar").width() + step + "px");
+							console.log(num);
+							recur_load(num + 1);
+							if(num == max / step){
+								$("#progress-bar-container, .loading").fadeOut();
+								$("#progress-bar-div p").fadeIn(1000);
+								$("#progress-bar-div").animate({
+									width: "152px",
+									marginLeft: "-75px"
+								}, 1000);
+								setTimeout(function(){
+									$("#progress-bar-div").fadeOut("slow", function(){
+										hideOverlay();
+										loadEntries();
+									});
+								}, 2000);
+							}
+						}
+					}
+				});
 			}
-		});
+		}
+		recur_load(0);
 	}
 );
 

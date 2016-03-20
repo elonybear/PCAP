@@ -133,9 +133,11 @@ app.post('/upload', function(req, res){
 			var num = 0;
 			sheet_info.worksheets[0].getRows(function(err, rows){
 				//rows.forEach(function(row){
-				for(var i = 0; i < 15; i++){
+				var body = _.pick(req.body, 'start', 'step');	
+				console.log(body);
+				for(var i = body.start; i < body.start + body.step; i++){
 					var row = rows[i];
-					if(row.artistnameforlabel){
+					if(row && row.artistnameforlabel){
 						var new_piece = {
 							title: row.title,
 							title_upper: row.title.toUpperCase(),
@@ -152,26 +154,15 @@ app.post('/upload', function(req, res){
 							new_piece.facility = row.facilitywhenartworksubmitted;
 							new_piece.facility_upper = row.facilitywhenartworksubmitted.toUpperCase();
 						}
+						console.log(i);
 						db.piece.create(new_piece).then(function(piece){
-							if(i == 15){
-								var order = "title_upper ASC";
-								db.piece.findAll({
-									order: order
-								}).then(function(pieces){
-									var max_rows = storage.getItemSync('max_rows'); 	
-									res.status(200).json({
-										all_pieces: pieces,
-										new_piece: piece,
-										max_rows: max_rows
-									});
-								});
-							}
 						}, function(err){
 							console.log(err);
 							res.status(500).json(err);
 						});
 					}
 				}
+				res.status(204).send();
 				//});
 			});
 		});
