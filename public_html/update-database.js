@@ -55,7 +55,7 @@ $("#upload").click(
 			url = "http://localhost:3000/upload";
 		}
 		else {
-			url = "http://pcap-database.herokuapp.com/upload";
+			url = "http://pcap.herokuapp.com/upload";
 		}
 		console.log("Posting");
 		$.ajax({
