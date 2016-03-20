@@ -65,6 +65,9 @@ $("#upload").click(
 				200: function(){
 					$("#update-database-x").click();
 					loadEntries();
+				},
+				500: function(err){
+					console.log(err);
 				}
 			}
 		});
