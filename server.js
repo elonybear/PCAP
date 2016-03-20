@@ -151,6 +151,8 @@ app.post('/upload', function(req, res){
 						new_piece.facility = row.facilitywhenartworksubmitted;
 						new_piece.facility_upper = row.facilitywhenartworksubmitted.toUpperCase();
 					}
+					console.log('\nNew piece\n');
+					console.log(new_piece);
 					db.piece.create(new_piece).then(function(piece){
 						var order = "title_upper ASC";
 						db.piece.findAll({

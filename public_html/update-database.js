@@ -49,7 +49,7 @@ $("#add-arrow").click(
 $("#upload").click(
 	function(event){
 		event.preventDefault();
-
+		$("#update-database-x").click();
 		var url;
 		if(location.hostname == "localhost"){
 			url = "http://localhost:3000/upload";
@@ -63,7 +63,6 @@ $("#upload").click(
 			method: 'POST',
 			statusCode : {
 				200: function(){
-					$("#update-database-x").click();
 					loadEntries();
 				},
 				500: function(err){
