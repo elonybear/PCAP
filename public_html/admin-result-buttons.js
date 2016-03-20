@@ -172,7 +172,7 @@ $(document).on("click", ".result-button", function(e){ //Click on 'Edit', 'Remov
 								url_reload = 'http://localhost:3000/admin.html?filter=';
 							}
 							else {
-								url_reload = 'http://pcap-database.herokuapp.com/admin.html?filter='
+								url_reload = 'http://pcap.herokuapp.com/admin.html?filter='
 							}
 							url_reload += $('.active').find('p').html().toLowerCase() + '&degree=' + getRotationDegrees($('.active'));
 							console.log(url);
