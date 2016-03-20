@@ -133,46 +133,40 @@ app.post('/upload', function(req, res){
 			var num = 0;
 			sheet_info.worksheets[0].getRows(function(err, rows){
 				//rows.forEach(function(row){
-				for(var i = 0; i < 5; i++){
-					var row = rows[i];
-					if(row.artistnameforlabel){
-						var new_piece = {
-							title: row.title,
-							title_upper: row.title.toUpperCase(),
-							artist: row.artistnameforlabel,
-							artist_upper: row.artistnameforlabel.toUpperCase(),
-							location: '',
-							location_upper: ''
-						};
-						if(!row.facilitywhenartworksubmitted){
-							new_piece.facility = "";
-							new_piece.facility_upper = "";
-						}
-						else {
-							new_piece.facility = row.facilitywhenartworksubmitted;
-							new_piece.facility_upper = row.facilitywhenartworksubmitted.toUpperCase();
-						}
-						db.piece.create(new_piece).then(function(piece){
-							num++;
-							console.log(num);
-							if(num == 5){
-								var order = "title_upper ASC";
-								db.piece.findAll({
-									order: order
-								}).then(function(pieces){
-									var max_rows = storage.getItemSync('max_rows'); 	
-									res.status(200).json({
-										all_pieces: pieces,
-										new_piece: piece,
-										max_rows: max_rows
-									});
-								});
-							}
-						}, function(err){
-							console.log(e);
-							res.status(500).json(e);
-						});
+				var row = rows[0];
+				if(row.artistnameforlabel){
+					var new_piece = {
+						title: row.title,
+						title_upper: row.title.toUpperCase(),
+						artist: row.artistnameforlabel,
+						artist_upper: row.artistnameforlabel.toUpperCase(),
+						location: '',
+						location_upper: ''
+					};
+					if(!row.facilitywhenartworksubmitted){
+						new_piece.facility = "";
+						new_piece.facility_upper = "";
 					}
+					else {
+						new_piece.facility = row.facilitywhenartworksubmitted;
+						new_piece.facility_upper = row.facilitywhenartworksubmitted.toUpperCase();
+					}
+					db.piece.create(new_piece).then(function(piece){
+						var order = "title_upper ASC";
+						db.piece.findAll({
+							order: order
+						}).then(function(pieces){
+							var max_rows = storage.getItemSync('max_rows'); 	
+							res.status(200).json({
+								all_pieces: pieces,
+								new_piece: piece,
+								max_rows: max_rows
+							});
+						});
+					}, function(err){
+						console.log(e);
+						res.status(500).json(e);
+					});
 				}
 				//});
 			});
