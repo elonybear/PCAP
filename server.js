@@ -83,21 +83,30 @@ app.get('/search', function(req, res){
 	var query = req.query;
 	var where = {};
 	var order = query.filter + ' ' + query.order;
-	var q_upper = query.q.toUpperCase();
+	if(query.hasOwnProperty('q') && query.q.length > 0){
+		var q_upper = query.q.toUpperCase();
+		where = { 
+			$or: [{
+				title: {
+					$like: '%' + q_upper + '%'
+				}},
+				{  artist: {
+					$like: '%' + q_upper + '%'
+				}
+			}]	
+		}
+	}	
 	if(query.hasOwnProperty('user') && query.user === 'user'){
 		where.artist_crit = false;	
 	}
+
 	db.piece.findAll({
 		where: where,
 		order: order
 	}).then(function(pieces){
+		console.log(pieces.title_upper + ' ' + pieces.artist_upper);
 		var max_rows = storage.getItemSync('max_rows');
-
-		var filtered_pieces = pieces;
-		filtered_pieces = _.filter(filtered_pieces, function(piece){
-			piece.title_upper.indexOf(q_upper) > -1 || piece.artist_upper.indexOf(q_upper) > -1;
-		});
-		res.status(200).json(filtered_pieces);	
+		res.json(pieces);	
 	}, function(e){
 		res.status(500).send(e);
 	});
