@@ -45,7 +45,7 @@ function initiateSearch(user){
 				}
 			},
 			success: function(piecesArray, textStatus, jqXHR){
-				if(user && user === 'true'){
+				if(user === 'true'){
 					$('#all-search-results-div').children().each(function(){
 						$(this).find('.search-result').each(function(){
 							var i = 0;
@@ -83,7 +83,7 @@ function initiateSearch(user){
 		})
 	}
 	else{
-		if(user && user === 'true'){
+		if(user === 'true'){
 			$('#all-search-results-div').children().each(function(){
 				$(this).find('.search-result').each(function(){
 					$(this).css('display', 'block');		
@@ -104,6 +104,7 @@ function initiateSearch(user){
 $(document).keyup(function(e){
 	if($('#results-search-bar').is(':focus')){
 		e.preventDefault();
+		console.log(window.location.pathname);
 		initiateSearch(window.location.pathname === '/user.html');	
 	}
 });
@@ -111,6 +112,7 @@ $(document).keyup(function(e){
 $('#results-search-button-a').on('click', function(e){
 	e.preventDefault();
 	console.log('Search initiated');
+	console.log(window.location.pathname);
 	initiateSearch(window.location.pathname === '/user.html');
 });
 
