@@ -104,7 +104,6 @@ app.get('/search', function(req, res){
 		where: where,
 		order: order
 	}).then(function(pieces){
-		console.log(pieces.title_upper + ' ' + pieces.artist_upper);
 		var max_rows = storage.getItemSync('max_rows');
 		res.json(pieces);	
 	}, function(e){
