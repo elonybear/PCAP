@@ -45,9 +45,6 @@ function initiateSearch(user){
 				}
 			},
 			success: function(piecesArray, textStatus, jqXHR){
-				piecesArray.forEach(function(piece){
-					console.log(piece.title + ' ' + piece.artist);
-				});
 				if(user && user === 'true'){
 					$('#all-search-results-div').children().each(function(){
 						$(this).find('.search-result').each(function(){
