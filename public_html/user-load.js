@@ -13,19 +13,23 @@ function getUrlVars(){
 }
 
 function createNew(title, artist, facility, location, id){
-	var entry = "<div class='search-result uncritiqued user'>" +
+	var entry = "<div class='search-result uncritiqued'>" +
 					"<div class='data-wrapper'>" +
 						"<div>" +
-							"<p class='search-result-data title-p'>" + title + "</p>" +
+							"<a class='title-link' href=''><p class='search-result-data title-p'>" + title + "</p></a>" +
 							"<div class='clearer'></div>" +
 						"</div>" +
 						"<div>" +
 							"<p class='search-result-data artist-p'>" + artist + "</p>" +
-							"<p class='search-result-data institution-p'>" + facility + "</p>" +
 							"<p class='search-result-data location-p'>" + location + "</p>" +
 						"</div>" +
 					"</div>" +
 					"<input class='result-id' type=hidden value=" + id + ">" +
+				"</div>" +
+				"<div class='critique-div'>" +
+					"<input type='text' name='name' class='user-name' placeholder='Name'/>" +
+					"<input type='text' name='email' class='user-email' placeholder='Email'/>" +
+					"<a href='' class='user-critique-submit'><p>Submit</p></a>" +
 				"</div>";
 	return entry;
 				
@@ -57,7 +61,6 @@ function loadEntries(){
 			}
 		},
 		success: function(piecesArray, textStatus, jqXHR){
-			console.log(JSON.stringify(piecesArray));
 			var max_rows = Math.ceil(piecesArray.length / 2);
 			if(max_rows === 0){
 				max_rows = 1;

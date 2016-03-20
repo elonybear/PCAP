@@ -47,7 +47,7 @@ $(document).on("click", ".result-button", function(e){ //Click on 'Edit', 'Remov
 				//Traverse to parent search-result 'div'
 				if($(this).index() / 2 != editing.index || $(this).parent().attr('id') != editing.parent){
 					//Click the Cancel button in the search-result currently being edited
-					$('#' + editing.parent).children().eq(editing.index).find(".result-buttons").children().eq(1).click();
+					$('#' + editing.parent).children().eq(editing.index * 2).find(".result-buttons").children().eq(1).click();
 					editing.index = -1;
 				}
 			}
@@ -116,14 +116,15 @@ $(document).on("click", ".result-button", function(e){ //Click on 'Edit', 'Remov
 		$(this).parent().children().eq(1).children().html("Cancel");
 		$(this).parents("div").each(function(){
 			if($(this).hasClass("search-result")){
+				var old_height = $(this).height();
+				var critique_info = $(this).find('.critique-info');
 				editing.index = $(this).index() / 2;
 				editing.parent = $(this).parent().attr('id');
 				var height = $(this).height();	
 				var title;
 				var artist; 
-				var institution;
 				var location; 
-				for(var data = 0; data < 4; data++){
+				for(var data = 0; data < 3; data++){
 					if(data == 0){
 						title = $(this).find('.title-p');
 						values.push(title.html());
@@ -133,19 +134,13 @@ $(document).on("click", ".result-button", function(e){ //Click on 'Edit', 'Remov
 						values.push(artist.html());
 					}
 					if(data == 2){
-						institution = $(this).find('.institution-p');
-						values.push(institution.html());
-					}
-					if(data == 3){
 						location = $(this).find('.location-p');
 						values.push(location.html());
 					}
 				}
 				title.replaceWith("<textarea class='data-input title-input' placeholder='New title' style='height:" + title.height() + "px;'>" + title.html() + "</textarea>");
 				artist.replaceWith("<textarea class='data-input artist-input' placeholder='Artist name' artist-input' style='height:" + artist.height() + "px;'>" + artist.html() + "</textarea>");
-				institution.replaceWith("<textarea class='data-input institution-input' placeholder='Facility name' institution-input' style='height:" + institution.height() + "px;'>" + institution.html() + "</textarea>");
 				location.replaceWith("<textarea class='data-input location-input' placeholder='Display location' style='height:" + location.height() + "px;'>" + location.html() + "</textarea>");
-				$(this).next().css('height', '30px');
 				return false;
 			}
 		});
@@ -158,8 +153,8 @@ $(document).on("click", ".result-button", function(e){ //Click on 'Edit', 'Remov
 				var result = $(this);	
 				var new_title = $(this).find('.title-input');
 				var new_artist = $(this).find('.artist-input');
-				var new_facility = $(this).find('.institution-input');
 				var new_loc = $(this).find('.location-input');
+				var old_height = result.height();
 
 				var index = $(this).children('.result-id').val();
 
@@ -168,17 +163,10 @@ $(document).on("click", ".result-button", function(e){ //Click on 'Edit', 'Remov
 				var updated_piece = {
 					title: new_title.val(),
 					artist: new_artist.val(),
-					facility: new_facility.val(),
 					location: new_loc.val(),
 					filter: filters[$('.filter').index(active_filter)],
 					order: order[(getRotationDegrees($('.active')) / 180) % 2]
 				};
-				if($(this).next().children('input').is(':checked')){
-					updated_piece.piece_crit = updated_piece.artist_crit = true;
-				}
-				else{
-					updated_piece.piece_crit  = false;	
-				}
 
 				console.log(updated_piece);
 				var url;
@@ -203,24 +191,21 @@ $(document).on("click", ".result-button", function(e){ //Click on 'Edit', 'Remov
 						204: function(){
 							result.find('.title-input').replaceWith("<p class='search-result-data title-p'>" + new_title.val() + "</p>");
 							result.find('.artist-input').replaceWith("<p class='search-result-data artist-p'>" + new_artist.val() + "</p>");
-							result.find('.institution-input').replaceWith("<p class='search-result-data institution-p'>" + new_facility.val() + "</p>");
 							result.find('.location-input').replaceWith("<p class='search-result-data location-p'>" + new_loc.val() + "</p>");
-							result.next().css('height', '0px');
-							if(updated_piece.piece_crit === true){
-								result.addClass('critiqued');
-								result.removeClass('uncritiqued');
-							}
-							else{
-								result.addClass('uncritiqued');
-								result.removeClass('critiqued');
-							}
 							editing.index = -1;
 						},
 						200: function(){
-							var url = 'http://localhost:3000/admin.html?filter=' + $('.active').find('p').html().toLowerCase() + '&degree=' + getRotationDegrees($('.active'));
+							var url_reload;
+							if(location.hostname == "localhost"){
+								url_reload = 'http://localhost:3000/admin.html?filter=';
+							}
+							else {
+								url_reload = 'http://pcap-database.herokuapp.com/admin.html?filter='
+							}
+							url_reload += $('.active').find('p').html().toLowerCase() + '&degree=' + getRotationDegrees($('.active'));
 							console.log(url);
-							window.location.href = url;
 							editing.index = -1;
+							window.location.href = url;
 						}
 					},
 				});
@@ -229,21 +214,55 @@ $(document).on("click", ".result-button", function(e){ //Click on 'Edit', 'Remov
 			}
 		});
 	}
-	else{ //Click on 'Cancel'
+	else if($(this).children().html() == "Cancel"){ //Click on 'Cancel'
 		editing.index = -1;
 		$(this).parents("div").each(function(){
 			if($(this).hasClass("search-result")){
 				$(this).find('.title-input').replaceWith("<p class='search-result-data title-p'>" + values[0] + "</p>");
 				$(this).find('.artist-input').replaceWith("<p class='search-result-data artist-p'>" + values[1] + "</p>");
-				$(this).find('.institution-input').replaceWith("<p class='search-result-data institution-p'>" + values[2] + "</p>");
-				$(this).find('.location-input').replaceWith("<p class='search-result-data location-p'>" + values[3] + "</p>");
+				$(this).find('.location-input').replaceWith("<p class='search-result-data location-p'>" + values[2] + "</p>");
 				values = [];
-				$(this).next().css('height', '0px');
 				return false;
 			}
 		});
 		$(this).children().html("Remove");	
 		$(this).parent().children().eq(0).children().html("Edit");
+	}
+	else { //Click on Cancel Critique
+		$(this).parents("div").each(function(){
+			if($(this).hasClass("search-result")){
+				var result = $(this);
+				var index = $(this).children('.result-id').val();
+				var url;
+				if(location.hostname == "localhost"){
+					url = "http://localhost:3000/remove-critique/";
+				}
+				else {
+					url = "http://pcap-database.herokuapp.com/remove-critique/";
+				}
+				$.ajax({
+					url: url + index,
+					method: 'PUT',
+					statusCode : {
+						500: function(){
+							console.log('Server error');
+						},
+						404: function(){
+							console.log('Not found');
+						},
+						204: function(){
+							console.log('Critique removed');
+							result.removeClass('critiqued');
+							result.addClass('uncritiqued');
+							result.find('.critique-info').css('display', 'none');
+							result.find('.critique-info').find('.critique-name-p').text("");
+							result.find('.critique-info').find('.critique-email-p').text("");
+							result.find('.cancel-critique').css('display', 'none');
+						}
+					}
+				})
+			}
+		});
 	}
 });
 

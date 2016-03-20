@@ -13,16 +13,14 @@
 </head>
 <body>	
 	<div id="wrapper">
+		<!--BEGIN HEADER-->
 		<div id="header">
 			<div id="results-search-bar-div">
 				<a href="https://www.lsa.umich.edu/pcap"><img id="results-search-logo" src="pcap-search-logo.png"/></a>
 				<input id="results-search-bar" type="text">
-				<a  id="results-search-button-a" href=""><div id="results-search-button-div">Search</div></a>
-				<a class="results-button-a" id="clear-database" href="">
-					<div class="results-button-div" style='font-size:17px'>Clear Database</div>
-				</a>	
-				<a class="results-button-a" id="add-new-entry" href="">
-					<div class="results-button-div" style='font-size:17px'>+ Add New Entry</div>
+				<a  id="results-search-button-a" href=""><div id="results-search-button-div">search</div></a>
+				<a class="results-button-a" id="update-database" href="">
+					<div class="results-button-div" style='font-size:17px'>update database</div>
 				</a>	
 			</div>	
 			<div id="member-buttons-div">
@@ -30,45 +28,55 @@
 					<p id='profile-p'>admin</p>
 					<div id="profile-img-wrapper"><img src='aboutIcon.png' id='admin-profile-img'></div>
 				</a>	
-			</div>
+			</div>	
 		</div>	
-		<div id="admin-dropdown-menu">
-			<a href='' id='change-password'><p>Change password</p></a>
-			<a href='' id='logout'><p>Logout</p></a>
+		<!--END HEADER-->
+
+		<!--BEGIN DROPDOWN WINDOW-->
+		<div class="dropdown-menu" id="admin-dropdown-menu">
+			<a href='' id='change-password'><p>change password</p></a>
+			<a href='' id='logout'><p>logout</p></a>
+			<div class="clearer"></div>
 		</div>
+		<!--END DROPDOWN WINDOW-->
+		
 		<div id="search-results-wrapper-div">
+			<!--BEGIN FILTER BUTTONS-->
 			<div id="filter-buttons">
 				<a class="filter inactive" id="piece" href="">
 					<div>
-						<p>Title</p>
+						<p>title</p>
 						<img class="triangle-filter inactive-triangle" src="triangle.jpg" />
 					</div>
 				</a>	
 				<a class="filter inactive" id="name" href="">
 					<div>
-						<p>Artist</p>
+						<p>artist</p>
 						<img class="triangle-filter inactive-triangle" src="triangle.jpg" />
 					</div>
 				</a>	
 				<a class="filter inactive" id="institution" href="">
 					<div>
-						<p>Facility</p>
+						<p>facility</p>
 						<img class="triangle-filter inactive-triangle" src="triangle.jpg" />
 					</div>
 				</a>	
 				<a class="filter inactive" id="location" href="">
 					<div>
-						<p>Location</p>
+						<p>location</p>
 						<img class="triangle-filter inactive-triangle" src="triangle.jpg" />
 					</div>
 				</a>	
 				<a class="filter inactive" id="critique" href="">
 					<div>
-						<p>Critique</p>
+						<p>critique</p>
 						<img class="triangle-filter inactive-triangle" src="triangle.jpg" />
 					</div>
 				</a>	
 			</div>
+			<!--END FILTER BUTTONS-->
+
+			<!--BEGIN DATABASE ENTRIES-->
 			<div id="all-search-results-div" class="style-6">
 				<div class='column' id="left-column">
 				</div>
@@ -76,55 +84,80 @@
 				</div>
 				<div class="clearer"></div>
 			</div>
+			<!--END DATABASE ENTRIES-->
 		</div>
 	</div>
-	<div id="login-overlay">
-		<div class="window-wrapper" id="login-wrapper">
-			<a class="x-a" id="login-x" href="">X</a>					
-			<form id="login-form">
-				<p class="error-message" id="login-error">* incorrect username or password</p>
-				<input id="username" class="login-input" type="text" name="username" placeholder="Username">
-				<input id="password" class="login-input" type="password" name="password" placeholder="Password">
-				<a id="submit-login" class="window-submit button-a" href=""><div class="button-div" id="submit-login-div">Submit</div></a>
-			</form>
-		</div>
+	<div id="overlay"></div>
+
+	<!--BEGIN LOGIN WINDOW-->
+	<div class="window-wrapper login-password-change" id="login-wrapper">
+		<a class="x-a" id="login-x" href="">X</a>					
+		<form id="login-form">
+			<p class="error-message" id="login-error">* incorrect username or password</p>
+			<input id="username" class="form-input" type="text" name="username" placeholder="username">
+			<input id="password" class="form-input" type="password" name="password" placeholder="password">
+			<a id="submit-login" class="window-submit button-a" href=""><div class="button-div" id="submit-login-div">submit</div></a>
+		</form>
 	</div>
-	<div id='change-password-overlay'>
-		<div class='window-wrapper' id='change-password-wrapper'>
-			<a class='x-a' id='change-password-x' href=''>X</a>
-			<form id='change-password-form'>
-				<p class='error-message' id='password-error'>* ensure passwords match</p>
-				<input id='old_password' class='login-input' type='password' name='new_password' placeholder='Current password'>
-				<input id='new_password_change' class='login-input' type='password' name='new_password' placeholder='New password' style='margin-top:20px'>
-				<input id='confirm_password' class='login-input' type='password' name='confirm_password' placeholder='Confirm password'>
-				<a id='submit-change-password' class='window-submit button-a' href=''><div class='button-div' id='submit-password-div'>Submit</div></a>
-			</form>
-		</div>
+	<!--END LOGIN WINDOW-->
+
+	<!--BEGIN CHANGE PASSWORD WINDOW-->
+	<div class='window-wrapper login-password-change' id='change-password-wrapper'>
+		<a class='x-a' id='change-password-x' href=''>X</a>
+		<form id='change-password-form'>
+			<p class='error-message' id='password-error'>* ensure passwords match</p>
+			<input id='old_password' class='form-input' type='password' name='new_password' placeholder='current password'>
+			<input id='new_password_change' class='form-input' type='password' name='new_password' placeholder='new password' style='margin-top:5px'>
+			<input id='confirm_password' class='form-input' type='password' name='confirm_password' placeholder='confirm password'>
+			<a id='submit-change-password' class='window-submit button-a' href=''><div class='button-div' id='submit-password-div'>submit</div></a>
+		</form>
 	</div>
-	<div id="new-entry-overlay">
+	<!--END CHANGE PASSWORD WINDOW-->
+
+	<!--BEGIN ADD NEW ENTRY WINDOW-->
+	<div id="add-wrapper" class="window-back-wrapper">
+		<a id="add-arrow" class="back-arrow" href=""><img src="left-arrow-gray.png"/></a>
 		<div class="window-wrapper" id="new-entry-wrapper">
 			<a class="x-a" id="new-entry-x" href="">X</a>
 			<form id="new-entry-form">
 				<p id="create-new-error" class="error-message">* all fields required</p>	
-				<input id="new-title-input" class="login-input" type="text" placeholder="Title of Piece">
-				<input id="new-artist-input" class="login-input" type="text" placeholder="Artist Name">
-				<input id="new-institution-input" class="login-input" type="text" placeholder="Facility Name">
-				<a id="submit-new-entry" class="window-submit button-a" href=""><div class="button-div">Create</div></a>  
+				<input id="new-title-input" class="form-input" type="text" placeholder="title of piece">
+				<input id="new-artist-input" class="form-input" type="text" placeholder="artist name">
+				<input id="new-institution-input" class="form-input" type="text" placeholder="facility name">
+				<a id="submit-new-entry" class="window-submit button-a" href=""><div class="button-div">create</div></a>  
 		</div>
 	</div>
-	<div id="clear-database-overlay">
+	<!--END ADD NEW ENTRY WINDOW-->
+
+	<!--BEGIN CLEAR DATABASE WINDOW-->
+	<div id="clear-wrapper" class="window-back-wrapper">
+		<a id="clear-arrow" class="back-arrow" href=""><img src="left-arrow-gray.png"/></a>
 		<div class="window-wrapper" id="clear-database-wrapper">
 			<a class="x-a" id="clear-database-x" href="">X</a>					
 			<form id="clear-database-form">
-				<p id='confirm-clear-message'>Confirm with username and password:</p>
+				<p id='confirm-clear-message'>confirm with username and password:</p>
 				<p class="error-message" id="clear-database-error">* incorrect username or password</p>
-				<input id="clear-username" class="login-input" type="text" name="username" placeholder="Username">
-				<input id="clear-password" class="login-input" type="password" name="password" placeholder="Password">
-				<a id="submit-clear-database" class="window-submit button-a" href=""><div class="button-div" id="submit-login-div">Submit</div></a>
+				<input id="clear-username" class="form-input" type="text" name="username" placeholder="username">
+				<input id="clear-password" class="form-input" type="password" name="password" placeholder="password">
+				<a id="submit-clear-database" class="window-submit button-a" href=""><div class="button-div" id="submit-login-div">submit</div></a>
 			</form>
 		</div>
 	</div>
+	<!--END CLEAR DATABASE WINDOW-->
+
+	<!--BEGIN UPDATE WINDOW-->
+	<div class="window-wrapper" id="update-wrapper">
+		<a class='x-a' id='update-database-x' href=''>X</a>
+		<a href='' class="update-database-button" id='add-new-entry'><p>add new entry</p></a>
+		<a href='' class="update-database-button" id='upload'><p>load from file...</p></a>
+		<a href='' class="update-database-button" id='clear-database'><p>clear database</p></a>	
+	</div>
+	<!--END UPDATE WINDOW-->
+
+	<div id="entry-count"><p></p></div>
+
 	<script type="text/javascript" src="admin-login.js"></script>
+	<script type="text/javascript" src="update-database.js"></script>
 	<script type="text/javascript" src="filter.js"></script>
 	<script type="text/javascript" src="admin-result-buttons.js"></script>
 	<script type="text/javascript" src="add-new-entry.js"></script>

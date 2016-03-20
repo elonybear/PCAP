@@ -1,15 +1,17 @@
-$('#clear-database').click(function(e){
-	e.preventDefault();
-	$('#wrapper').addClass('blur-filter');
-	$('#clear-database-overlay').fadeIn();
-	$('#clear-username').focus();
-});
-
 $('#clear-database-x').click(function(e){
 	e.preventDefault();
 	$("#wrapper").removeClass("blur-filter");
-	$("#clear-database-overlay").fadeOut();
-	$(".login-input").val("");	
+	$("#overlay").fadeOut();
+	$("#update-wrapper").fadeOut(100).delay(500)
+	.queue(function (next) { 
+    	$("#update-wrapper").css("right", "-350px"); 
+    	next(); 
+  }).fadeIn();
+	$("#clear-wrapper").fadeOut(100).delay(500).queue(function (next) { 
+    	$("#clear-wrapper").css("right", "-400px"); 
+    	next(); 
+  }).fadeIn();
+ $("#clear-wrapper input").val("");
 });
 
 $('#submit-clear-database').click(function(e){
@@ -33,8 +35,7 @@ $('#submit-clear-database').click(function(e){
 			204: function(){
 				$('#left-column').empty();
 				$('#right-column').empty();
-				$('#wrapper').removeClass('blur-filter');
-				$('#clear-database-overlay').fadeOut();
+				$("#clear-database-x").click();
 			},
 			401: function(){	
 				$("#clear-database-error").css('opacity', '1');
@@ -50,7 +51,7 @@ $('#submit-clear-database').click(function(e){
 });
 
 $(document).keypress(function(e) {
-	if($("#clear-database-overlay").css("display") == "block"){
+	if($("#clear-wrapper").css("right") != "-400px"){
 		if(e.which == 13){
 			$("#submit-clear-database").click();
 		}

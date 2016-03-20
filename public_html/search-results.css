@@ -3,6 +3,10 @@
 	margin:0
 }
 
+body {
+	overflow:hidden;
+}
+
 a{
 	text-decoration:none;
 }
@@ -18,7 +22,7 @@ a{
 
 #results-search-bar-div{
 	float:left;
-	width:1115px;
+	width:1328px;
 }
 
 #results-search-logo{
@@ -46,16 +50,15 @@ a{
 	width:80px;
 	color:white;
 	font-family:sans-serif;
-	height:40px;
+	height:37px;
 	float:left;
 	text-align:center;
 	font-size:18px;
 	margin-left:8px;
-	margin-top:8px;
+	margin-top:11px;
 }
 
 #results-search-button-div{
-	margin-top:3px;
 	background-color:#00BFFF;
 	border-radius:5px;
 	padding:8px;
@@ -73,27 +76,16 @@ a{
 	height:60px;
 }
 
-#add-new-entry{
-	margin-top:11px;
-	margin-left:10px;
-	margin-right:0;
-}
-
-#clear-database{
-	margin-top:11px;
-	margin-left:10px;
-	margin-right:0;
-}
-
 .results-button-a{
 	display:block;
 	float:left;
 	height:37px;
 	color:white;
-	margin-right:10px;
+	margin-left:10px;
 	font-family:sans-serif;
 	transition:all .2s;
 	overflow:auto;
+	margin-top:11px;
 }
 
 .results-button-div{
@@ -101,6 +93,12 @@ a{
 	border-radius:5px;
 	padding:8px;
 	height:21px;
+}
+
+.results-button-div img{
+	width:18px;
+	margin-left:5px;
+	position:relative;
 }
 
 #admin-profile{
@@ -142,22 +140,36 @@ a{
 	opacity:.6;
 }
 
-#admin-dropdown-menu{
+.dropdown-menu {
 	width:190px;
-	height:0px;
-	position:fixed;
-	right:0;
+	margin-top:-28px;
 	background-color:#f1f1f1;
-	transition:height .5s;
+	transition: height .5s;
 	overflow:hidden;
+	right:0;
+	position:fixed;
+	height:0px;
 }
 
-#admin-dropdown-menu p{
+#update-dropdown-menu {
+	margin-right:415px;
+	height:100px;
+	border-bottom:1px solid #d5d5d5;
+}
+
+#update-dropdown-menu a{
+	border-right:1px solid #d5d5d5;
+}
+
+#admin-dropdown-menu {
+}
+
+.dropdown-menu p{
 	font-family:sans-serif;
 	color:#00BFFF;
 }
 
-#admin-dropdown-menu a{
+.dropdown-menu a{
 	display:block;
 	padding:8px;
 	border-left:1px solid #d5d5d5;
@@ -176,7 +188,7 @@ a{
 
 /*Particular to user*/
 #search-results-wrapper-div{
-	margin-top:61px;
+	margin-top:89px;
 }
 
 #filter-buttons{
@@ -259,7 +271,7 @@ a{
 	/*margin-top:15px;*/
 }
 
-.user{
+.admin{
 	margin-bottom:15px;
 }
 
@@ -281,7 +293,7 @@ a{
 	font-family:sans-serif;
 	float:left;
 	margin-top:6px;
-	margin-left:38px;
+	margin-left:30px;
 }
 
 .critique-checkbox{
@@ -291,14 +303,23 @@ a{
 }
 
 .data-wrapper{
-	margin-left:35px;
+	margin-left:30px;
 	float:left;
 }
 
+.title-link{
+	color:black;
+}
+
+.title-link p:hover {
+	opacity:.5;
+}
+
 .title-p{
-	font-size: 30px;
+	font-size: 25px;
 	float:left;
 	max-width:371px;
+	transition:opacity .2s;
 }
 .artist-p{
 	color:#7B7B7B;
@@ -333,13 +354,9 @@ a{
 }
 
 .result-buttons{
-	width:140px;
+	width:230px;
 	height:20px;
 	margin-top:12px;
-}
-
-.clearer{
-	clear:both;
 }
 
 .result-button{
@@ -353,12 +370,64 @@ a{
 	color:gray;
 }
 
+.critique-info {
+	font-family:sans-serif;
+	color:#7B7B7B;
+	font-style: oblique;
+	font-size:12px;
+	margin-left: 65px;
+	display:none;
+}
+
 .critiqued{
 	background-color: #D0EBFF;	
 }
 
 .uncritiqued{
 	background-color: #EBEBEB;
+}
+
+.user-critique {
+	float:left;
+	margin-left:11px;
+	margin-top:10px;
+}
+
+.critique-div input {
+	height:20px;
+	margin-top:8px;
+	float:left;
+	border:none;
+	padding:1px;
+	padding-left:6px;
+}
+
+.critique-div input:focus {
+	outline:none;
+}
+
+.user-name {
+	width:150px;
+	margin-left:8px;
+}
+
+.user-email {
+	width:200px;
+	margin-left:3px;
+}
+
+.user-critique-submit {
+	float:left;
+	margin-top:12px;
+	margin-left:11px;
+	font-size:13px;
+	font-family: sans-serif;
+	color:#00BFFF;
+	transition:opacity .2s;
+}
+
+.user-critique-submit:hover {
+	opacity:.6;
 }
 
 .data-input{
@@ -379,6 +448,10 @@ a{
 	min-height:16px;
 }
 
+.institution-input {
+	display:none;
+}
+
 .location-input{
 	width:130px;
 }
@@ -387,40 +460,40 @@ a{
 	outline:none;
 }
 
-#login-overlay{
+/* ============= VARIOUS WINDOWS ============= */
+/* LOGIN, 
+ * UPDATE PASSWORD, 
+ * ADD NEW ENTRY, 
+ * CLEAR DATABASE, 
+ * UPDATE DATABASE 
+ */
+
+#overlay {
 	width:1436px;
 	height:750px;
 	position:absolute;
-	top:-750px;
-	transition:top 1s;
-
-}
-#login-wrapper{
-	height:255px;
+	top:0px;
+	display:none;	
+	z-index:5;
 }
 
-#password-overlay{
-	width:1436px;
-	height:750px;
+.blur-filter {
+    -webkit-filter: blur(10px);
+    -moz-filter: blur(10px);
+    -o-filter: blur(10px);
+    -ms-filter: blur(10px);
+    filter: blur(10px);
+}
+
+.window-back-wrapper {
 	position:absolute;
-	top:-750px;
-	transition: top 1s;
-}
-
-#password-wrapper{
-	height:236px;
-}
-
-#change-password-overlay{
-	width:1436px;
-	height:750px;
-	position:absolute;
-	top:-750px;
-	transition: top 1s;
-}
-
-#change-password-wrapper{
-	height:300px;
+	display:inline-block;
+	right:-400px;
+	margin-right:-175px;
+	transition:right .5s;
+	top:50%;
+	margin-top:-150px;
+	z-index:6;
 }
 
 .window-wrapper{
@@ -430,15 +503,12 @@ a{
 	background-color:white;
 	border:1px gray solid;
 
-	position:absolute;
-	left:50%;
-	margin-left:-175px;
-	top:50%;
-	margin-top:-175px;
 	opacity:.9;
 
 	transition:top .5s;
-}	
+
+	float:left;
+}
 
 .x-a{
 	font-family:sans-serif;
@@ -448,6 +518,7 @@ a{
 	float:right;
 	margin-right:15px;
 	margin-top:10px;
+	position:relative;
 }
 
 .error-message{
@@ -460,16 +531,17 @@ a{
 	transition:opacity 1s;
 }
 
-#login-error{
-	top:55px;
+.error-message{
+	font-family:sans-serif;
+	color:#FA5858;
+	font-size:12px;
+	position:relative;
+	top:40px;
+	opacity:0;
+	transition:opacity 1s;
 }
 
-#login-form{
-	width:212px;
-	margin:0 auto;
-}
-
-.login-input{
+.form-input{
 	height:30px;
 	width:200px;	
 	font-size:20px;
@@ -479,36 +551,8 @@ a{
 	padding:5px;
 }
 
-.login-input:focus{
+.form-input:focus{
 	outline:none;
-}
-
-#username{
-	margin-top:60px;
-}
-
-#password{
-	margin-top:20px;
-}
-
-#password-error{
-	margin-left:70px;
-}
-
-#old_password{
-	margin-top:45px;
-}
-
-#confirm_password{
-	margin-top:20px;
-}
-
-#submit-password{
-	margin-left:200px;
-}
-
-#submit-change-password{
-	margin-left:200px;
 }
 
 .window-submit{
@@ -522,6 +566,51 @@ a{
 	padding:5px;
 }
 
+.login-password-change {
+	position:absolute;
+	top:-350px;
+	left:50%;
+	margin-left:-175px;
+	transition: top .5s;
+	z-index:6;
+}
+
+.back-arrow {
+	display:inline-block;
+	float:left;
+	margin-top:111px;
+	display:none;
+}
+
+.back-arrow img {
+	width: 28px;
+	opacity:.6;
+}
+
+/* =========== BEGIN LOGIN WINDOW ============ */
+
+#login-wrapper{
+	height:255px;
+	margin-top:-123px;
+}
+
+#login-form{
+	width:212px;
+	margin:0 auto;
+}
+
+#login-error{
+	top:55px;
+}
+
+#username{
+	margin-top:60px;
+}
+
+#password{
+	margin-top:20px;
+}
+
 #submit-login{
 	margin-left:133px;
 	text-align:center;
@@ -531,24 +620,37 @@ a{
 	padding:8px;
 }
 
-.blur-filter {
-    -webkit-filter: blur(10px);
-    -moz-filter: blur(10px);
-    -o-filter: blur(10px);
-    -ms-filter: blur(10px);
-    filter: blur(10px);
+/* =========== END LOGIN WINDOW ============ */
+
+/* =========== BEGIN CHANGE PASSWORD WINDOW ============ */
+#change-password-wrapper{
+	height:270px;
+	margin-top:-135px;
 }
 
-#new-entry-overlay{
-	width:1436px;
-	height:750px;
-	position:absolute;
-	top:0;
-	display:none;
+#password-error{
+	margin-left:70px;
 }
+
+#old_password{
+	margin-top:45px;
+}
+
+#confirm_password{
+	margin-top:5px;
+}
+
+#submit-change-password{
+	margin-left:200px;
+}
+
+/* =========== END CHANGE PASSWORD WINDOW ============ */
+
+/* =========== BEGIN ADD NEW ENTRY WINDOW ============ */
 
 #new-entry-wrapper{
 	height:272px;
+	margin-left:20px;
 }
 
 #new-title-input{
@@ -567,15 +669,12 @@ a{
 	margin-left:70px;
 }
 
-#clear-database-overlay{
-	width:1436px;
-	height:750px;
-	position:absolute;
-	top:0px;
-	display:none;
-}
+/* =========== END ADD NEW ENTRY WINDOW ============ */
+
+/* =========== BEGIN CLEAR DATABASE WINDOW ============ */
 #clear-database-wrapper{
 	height:280px;
+	margin-left:20px;
 }
 
 #submit-clear-database{
@@ -603,6 +702,51 @@ a{
 	color:gray;
 }
 
+/* =========== END CLEAR DATABASE WINDOW ============ */
+
+/* =========== BEGIN UPDATE DATABASE WINDOW ============ */
+#update-wrapper {
+	position:absolute;
+	height: 280px;
+	margin-top:-140px;
+	top:50%;
+	margin-right:-175px;
+	right:-350px;
+	transition:right .5s;
+	z-index:6;
+}
+
+.update-database-button {
+	font-family:sans-serif;
+	font-size:24px;
+	padding:12px;
+	display:block;
+	text-align:center;
+	margin-top:2px;
+}
+
+.update-database-button p {
+	color:#00BFFF;
+	transition:opacity .5s;
+	padding:5px;
+	border: 1px solid white;
+	border-radius:3px;
+}
+
+#add-new-entry {
+	margin-top:50px;
+}
+
+.update-database-button:hover {
+
+}
+
+.update-database-button:hover p {
+	border-color:#d5d5d5;
+}
+
+/* =========== END UPDATE DATABASE WINDOW ============ */
+
 .style-6::-webkit-scrollbar-track
 {
 	-webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
@@ -626,4 +770,18 @@ a{
   	rgba(255, 255, 255, .2) 75%,
   	transparent 75%,
   	transparent)
+}
+
+.clearer{
+	clear:both;
+}
+
+#entry-count {
+	margin-top:12px;
+}
+
+#entry-count p {
+	float:right;
+	margin-right:12px;
+	font-family:sans-serif;
 }

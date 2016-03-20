@@ -2,6 +2,7 @@
 
 function CheckLoggedInStatus(){
 	var url;
+	console.log("Checking status");
 	if(location.hostname == 'localhost') {
 		url = 'http://localhost:3000/time';
 	}
@@ -13,8 +14,10 @@ function CheckLoggedInStatus(){
 		method: 'GET',
 		statusCode: {
 			401: function(){
-				$("#login-overlay").css("top", 0);
-				$("#wrapper").addClass("blur-filter");		
+				console.log("Never logged in");
+				$("#overlay").fadeIn();
+				$("#wrapper").addClass("blur-filter");
+				$("#login-wrapper").css("top", "50%");	
 				$("#username").focus();	
 			}
 		},
@@ -41,9 +44,59 @@ function CheckLoggedInStatus(){
 			}
 			else{
 				$("#login-overlay").css("top", 0);
-				$("#wrapper").addClass("blur-filter");		
+				$("#overlay").fadeIn();
+				$("#wrapper").addClass("blur-filter");
+				$("#login-wrapper").css("top", "50%");	
 				$("#username").focus();	
 			}
+		}
+	});
+}
+
+function fillTable(piecesArray)
+{
+	var max_rows = Math.ceil(piecesArray.length / 2);
+	if(max_rows === 0){
+		max_rows = 1;
+	}
+	var url_post_number;
+	if(location.hostname == 'localhost') {
+		url_post_number = 'http://localhost:3000/number';
+	}
+	else {
+		url_post_number = 'http://pcap-database.herokuapp.com/number';
+	}
+	$.ajax({
+		url: url_post_number,
+		method: 'POST',
+		data: JSON.stringify({
+			max_rows: max_rows
+		}),
+		contentType: 'application/json',
+		success: function(){
+			for(var i = 0; i < piecesArray.length; i++){
+				var piece = piecesArray[i];
+				if(piece.piece_crit){
+					console.log(piece);
+				}
+				var entry = createNew(piece.title, piece.artist, piece.facility, piece.location, piece.id, piece.piece_crit, piece.crit_name, piece.crit_email);		
+				if(i < max_rows){
+					$('#left-column').append(entry);
+					if(piece.piece_crit === true){
+						$('#left-column').find('.search-result').last().addClass('critiqued');
+						$('#left-column').find('.search-result').last().removeClass('uncritiqued');
+					}
+				}
+				else{
+					$('#right-column').append(entry);
+					if(piece.piece_crit === true){
+						$('#right-column').find('.search-result').last().addClass('critiqued');
+						$('#right-column').find('.search-result').last().removeClass('uncritiqued');
+					}
+				}
+			}
+			$("#entry-count p").text(piecesArray.length + ' entries');
+			hideLoginMenu();
 		}
 	});
 }
@@ -75,46 +128,7 @@ function loadEntries(){
 			}
 		},
 		success: function(piecesArray, textStatus, jqXHR){
-			var max_rows = Math.ceil(piecesArray.length / 2);
-			if(max_rows === 0){
-				max_rows = 1;
-			}
-			var url_post_number;
-			if(location.hostname == 'localhost') {
-				url_post_number = 'http://localhost:3000/number';
-			}
-			else {
-				url_post_number = 'http://pcap-database.herokuapp.com/number';
-			}
-			$.ajax({
-				url: url_post_number,
-				method: 'POST',
-				data: JSON.stringify({
-					max_rows: max_rows
-				}),
-				contentType: 'application/json',
-				success: function(){
-					for(var i = 0; i < piecesArray.length; i++){
-						var piece = piecesArray[i];
-						var entry = createNew(piece.title, piece.artist, piece.facility, piece.location, piece.id, piece.piece_crit);		
-						if(i < max_rows){
-							$('#left-column').append(entry);
-							if(piece.piece_crit === true){
-								$('#left-column').find('.search-result').last().addClass('critiqued');
-								$('#left-column').find('.search-result').last().removeClass('uncritiqued');
-							}
-						}
-						else{
-							$('#right-column').append(entry);
-							if(piece.piece_crit === true){
-								$('#right-column').find('.search-result').last().addClass('critiqued');
-								$('#right-column').find('.search-result').last().removeClass('uncritiqued');
-							}
-						}
-					}
-					hideLoginMenu();
-				}
-			});
+			fillTable(piecesArray);
 		}
 	});	
 }
@@ -174,12 +188,13 @@ $(document).ready(function(){
 
 //Upon successful login, hide meny
 function hideLoginMenu(){	
-	$("#login-overlay").css("top","-750px");
+	$("#login-wrapper").css("top","-350px");
 	$("#wrapper").removeClass("blur-filter");
 	$("#username").css("box-shadow", "none");
 	$("#password").css("box-shadow", "none");
 	$("#username").val("");
 	$("#password").val("");
+	$("#overlay").fadeOut();
 }
 
 function hidePasswordMenu(){
@@ -192,7 +207,7 @@ function hidePasswordMenu(){
 }
 
 function hideChangePasswordMenu(){
-	$("#change-password-overlay").css("top","-750px");
+	$("#change-password-wrapper").css("top","-350px");
 	$("#wrapper").removeClass("blur-filter");
 	$("#new_password").css("box-shadow", "none");
 	$("#confirm_password").css("box-shadow", "none");
@@ -254,12 +269,12 @@ $("#submit-login").click(function (e) {
 
 //Press enter to submit login
 $(document).keypress(function(e) {
-	if($("#login-overlay").css("top") != "-750px"){
+	if($("#login-wrapper").css("top") != "-350px"){
 		if(e.which == 13){
 			$("#submit-login").click();
 		}
 	}
-	else if($("#change-password-overlay").css('top') != '-750px'){
+	else if($("#change-password-wrapper").css('top') != '-350px'){
 		if(e.which == 13){
 			$('#submit-change-password').click();
 		}
@@ -283,8 +298,9 @@ $('#admin-profile').click(function(e){
 
 $('#change-password').click(function(e){		
 	e.preventDefault();
-	$("#change-password-overlay").css("top", 0);
-	$("#wrapper").addClass("blur-filter");		
+	$("#wrapper").addClass("blur-filter");
+	$("#overlay").fadeIn();
+	$("#change-password-wrapper").css("top", "50%");		
 	$("#old_password").focus();	
 	$('#admin-dropdown-menu').css('height', '0');
 	setTimeout(function(){
@@ -318,7 +334,7 @@ $('#submit-change-password').click(function(e){
 			}),
 			contentType: 'application/json',
 			success: function(){
-				hideChangePasswordMenu();	
+				$("#change-password-x").click();	
 			}
 		});
 	}
@@ -327,12 +343,9 @@ $('#submit-change-password').click(function(e){
 $("#change-password-x").click(function(e){
 	e.preventDefault();
 	$("#wrapper").removeClass("blur-filter");
-	$("#change-password-overlay").fadeOut();
-	$(".login-input").val("");		
-	$('#admin-dropdown-menu').css('height', '0');
-	setTimeout(function(){
-		$('#admin-dropdown-menu').css('border-bottom', 'none');
-	}, 500);
+	$("#overlay").fadeOut();
+	$("#change-password-wrapper").css("top", "-350px");
+	$("#change-password-wrapper input").val("");		
 });
 
 $("#logout").click(function(e){

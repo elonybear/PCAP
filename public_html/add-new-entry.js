@@ -17,13 +17,13 @@ function getRotationDegrees(obj) {
 	return (angle < 0) ? angle + 360 : angle;
 }
 
-function createNew(title, artist, facility, loc, id, piece_crit){
+function createNew(title, artist, facility, loc, id, piece_crit, crit_name, crit_email){
 	var entry; 
 		console.log(piece_crit);
 		if(piece_crit === true){
-			entry = "<div class='search-result critiqued'>";
+			entry = "<div class='search-result admin critiqued'>";
 		} else{
-			entry = "<div class='search-result uncritiqued'>";
+			entry = "<div class='search-result admin uncritiqued'>";
 		}
 		
 		entry += "<div class='data-wrapper'>" +
@@ -33,43 +33,54 @@ function createNew(title, artist, facility, loc, id, piece_crit){
 					"</div>" +
 					"<div>" +
 						"<p class='search-result-data artist-p'>" + artist + "</p>" +
-						"<p class='search-result-data institution-p'>" + facility + "</p>" +
-						"<p class='search-result-data location-p'></p>" +
+						"<p class='search-result-data location-p'>" + loc + "</p>" +
 						"<div class='clearer'></div>" +
 					"</div>" +
 					"<div class='result-buttons'>" +
 						"<a href='' class='result-button edit-save'><p>Edit</p></a>" +
-						"<a href='' class='result-button remove-cancel'><p>Remove</p></a>" +
-					"</div>" +
-				"</div>" +
-				"<input class='result-id' type=hidden value=" + id + ">" +
-			"</div>" + 
-			"<div class='critique-div'>" +
-				"<p class='critique-p'>Critiqued?</p>";
-				if(piece_crit === true){
-					entry += "<input type=checkbox class='critique-checkbox' checked/>";
+						"<a href='' class='result-button remove-cancel'><p>Remove</p></a>";
+					if(piece_crit){
+						entry += "<a href='' class='result-button cancel-critique' style='display:inline-block;'><p>Cancel Critique</p></a>";
+					}
+					else {
+						entry += "<a href='' class='result-button cancel-critique' style='display:none;'><p>Cancel Critique</p></a>";
+					}
+					entry += "</div>" +
+				"</div>";
+				if(piece_crit){
+					entry += "<div class='critique-info' style='display:inline-block;'>" +
+					"<p>Critiqued by:</p>" +
+					"<p class='critique-name-p'>" + crit_name + "</p>" +
+					"<p class='critique-email-p'>" + crit_email + "</p>" +
+				"</div>";
 				}
-				else{
-					entry += "<input type=checkbox class='critique-checkbox'/>";
+				else {
+					entry += "<div class='critique-info'>" +
+					"<p>Critiqued by:</p>" +
+					"<p class='critique-name-p'>" + crit_name + "</p>" +
+					"<p class='critique-email-p'>" + crit_email + "</p>" +
+				"</div>";
 				}
-			entry += "</div>";
-					
+				entry += "<input class='result-id' type=hidden value=" + id + ">" +
+			"</div>";
 			
 		return entry;
 }
 
-$("#add-new-entry").click(function(e){			
-	e.preventDefault();
-	$("#wrapper").addClass("blur-filter");		
-	$("#new-entry-overlay").fadeIn();
-	$("#new-title-input").focus();	
-});
-
 $("#new-entry-x").click(function(e){
 	e.preventDefault();
 	$("#wrapper").removeClass("blur-filter");
-	$("#new-entry-overlay").fadeOut();
-	$(".login-input").val("");	
+	$("#overlay").fadeOut();
+	$("#update-wrapper").fadeOut(100).delay(500)
+	.queue(function (next) { 
+    	$("#update-wrapper").css("right", "-350px"); 
+    	next(); 
+  }).fadeIn();
+	$("#add-wrapper").fadeOut(100).delay(500).queue(function (next) { 
+    	$("#add-wrapper").css("right", "-400px"); 
+    	next(); 
+  }).fadeIn();
+	$("#add-wrapper input").val("");
 });
 var clicked = 0;
 var filters = ['title_upper', 'artist_upper', 'facility_upper', 'location_upper', 'piece_crit'];
@@ -118,7 +129,8 @@ $("#submit-new-entry").click(function(e){
 });
 
 $(document).keypress(function(e) {
-	if($("#new-entry-overlay").css("display") == "block"){
+	console.log($("#add-wrapper").css("right"));
+	if($("#add-wrapper").css("right") != "-400px"){
 		if(e.which == 13){
 			$("#submit-new-entry").click();
 		}

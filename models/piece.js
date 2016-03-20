@@ -25,22 +25,22 @@ module.exports = function(sequelize, DataTypes) {
 		facility: {
 			type: DataTypes.STRING,
 			allowNull: false,
-			validate: {
-				len: [1]
-			}
+			defaultValue: ""
 		},
 		facility_upper: {
 			type: DataTypes.STRING,
 			allowNull: false,
+			defaultValue: ""
 		},
 		location: {
 			type: DataTypes.STRING,
-			validate: {
-				len: [1]
-			}
+			allowNull: false,
+			defaultValue: ""
 		},
 		location_upper: {
 			type: DataTypes.STRING,
+			allowNull: false,
+			defaultValue: ""
 		},
 		artist_crit: {
 			type: DataTypes.BOOLEAN,
@@ -51,6 +51,16 @@ module.exports = function(sequelize, DataTypes) {
 			type: DataTypes.BOOLEAN,
 			allowNull: false,
 			defaultValue: false
+		},
+		crit_name: {
+			type: DataTypes.STRING,
+			allowNull: false,
+			defaultValue: ""
+		},
+		crit_email: {
+			type: DataTypes.STRING,
+			allowNull: false,
+			defaultValue: ""
 		}
 	})
 }
