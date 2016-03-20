@@ -70,35 +70,7 @@ $(document).on("click", ".result-button", function(e){ //Click on 'Edit', 'Remov
 					method: 'DELETE',
 					statusCode: {
 						204: function(){
-							console.log('Successfully deleted');
-							if(result.parent().attr('id') === 'left-column'){
-								console.log('Deleting in left column');
-								if($('#left-column').children().length === 
-								   $('#right-column').children().length){
-									$('#left-column').append($('#right-column').children().first());
-									$('#left-column').append($('#right-column').children().first());
-									if($('#left-column').children().length > 2){
-										console.log('removing first class');
-										$('#left-column').find('.search-result').last().removeClass('first');
-									}
-									if($('#right-column').children().length > 0){
-										$('#right-column').children().first().addClass('first');
-									}
-								}	
-							}
-							else{
-								console.log('Deleting in right column');
-								if($('#right-column').children().length < 
-								   $('#left-column').children().length){
-									   $('#right-column').children().first().removeClass('first');
-									   $('#right-column').prepend($('#left-column').children().last());
-									   $('#right-column').prepend($('#left-column').children().last());
-									   $('#right-column').children().first().addClass('first');
-								   }		
-							}
-							result.next().remove();
-							result.remove();	
-							return false;
+							location.reload();
 						},
 						404: function(){
 							console.log('Entry could not be found in database');
