@@ -7,7 +7,7 @@ function CheckLoggedInStatus(){
 		url = 'http://localhost:3000/time';
 	}
 	else {
-		url = 'http://pcap-database.herokuapp.com/time';
+		url = 'http://pcap.herokuapp.com/time';
 	}
 	$.ajax({
 		url: url,
@@ -64,7 +64,7 @@ function fillTable(piecesArray)
 		url_post_number = 'http://localhost:3000/number';
 	}
 	else {
-		url_post_number = 'http://pcap-database.herokuapp.com/number';
+		url_post_number = 'http://pcap.herokuapp.com/number';
 	}
 	$.ajax({
 		url: url_post_number,
@@ -109,7 +109,7 @@ function loadEntries(){
 		url_load = 'http://localhost:3000/';
 	}
 	else {
-		url_load = 'http://pcap-database.herokuapp.com/';
+		url_load = 'http://pcap.herokuapp.com/';
 	}
 	
 	url_load += 'admin/pieces?filter=' + filters[$('.filter').index(active_filter)];
@@ -236,7 +236,7 @@ $("#submit-login").click(function (e) {
 		url = 'http://localhost:3000/login';
 	}
 	else {
-		url = 'http://pcap-database.herokuapp.com/login';
+		url = 'http://pcap.herokuapp.com/login';
 	}
 	$.ajax({
 		url: url,
@@ -323,7 +323,7 @@ $('#submit-change-password').click(function(e){
 			url = 'http://localhost:3000/password';
 		}
 		else {
-			url = 'http://pcap-database.herokuapp.com/password';
+			url = 'http://pcap.herokuapp.com/password';
 		}
 		$.ajax({
 			url: url,
@@ -355,7 +355,7 @@ $("#logout").click(function(e){
 		url = 'http://localhost:3000/logout';
 	}
 	else {
-		url = 'http://pcap-database.herokuapp.com/logout';
+		url = 'http://pcap.herokuapp.com/logout';
 	}
 	$.ajax({
 		url: url,
