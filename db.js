@@ -1,14 +1,14 @@
 var Sequelize = require('sequelize');
 var env = process.env.NODE_ENV || 'development';
-var sequelize;
+var sqlze;
 
 if(env == 'production') {
-	sequelize = new Sequelize(process.env.DATABASE_URL, {
+	sqlze = new Sequelize(process.env.DATABASE_URL, {
 		dialect: 'postgres'
 	});
 }
 else {
-	sequelize = new Sequelize(undefined, undefined, undefined, {
+	sqlze = new Sequelize(undefined, undefined, undefined, {
 		'dialect': 'sqlite',
 		'storage': __dirname + '/data/pcap-db.sqlite'
 	});
@@ -17,9 +17,9 @@ else {
 
 var db = {};
 
-db.piece = sequelize.import(__dirname + '/models/piece.js');
+db.piece = sqlze.import(__dirname + '/models/piece.js');
 
-db.sequelize = sequelize;
+db.sequelize = sqlze;
 db.Sequelize = Sequelize;
 
 module.exports = db;

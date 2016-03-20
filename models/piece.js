@@ -52,15 +52,15 @@ module.exports = function(sequelize, DataTypes) {
 			allowNull: false,
 			defaultValue: false
 		},
-		crit_name: {
-			type: DataTypes.STRING,
-			allowNull: false,
-			defaultValue: ""
-		},
 		crit_email: {
 			type: DataTypes.STRING,
 			allowNull: false,
 			defaultValue: ""
 		}
+		crit_name: {
+			type: DataTypes.STRING,
+			allowNull: false,
+			defaultValue: ""
+		},
 	})
 }
