@@ -94,7 +94,7 @@ app.get('/search', function(req, res){
 		var max_rows = storage.getItemSync('max_rows');
 
 		var filtered_pieces = pieces;
-		filtered_pieces(filtered_pieces, function(piece){
+		filtered_pieces = _.filter(filtered_pieces, function(piece){
 			piece.title_upper.indexOf(q_upper) > -1 || piece.artist_upper.indexOf(q_upper) > -1;
 		});
 		res.status(200).json(filtered_pieces);	
