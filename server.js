@@ -7,7 +7,7 @@ var crypto = require('crypto-js');
 var storage = require('node-persist');
 var jsdiff = require('diff');
 var GoogleSpreadsheet = require('google-spreadsheet');
-var fs = require('fs');
+var mutex = require('node-mutex')();
 
 var app = express();
 var PORT = process.env.PORT || 3000;
@@ -250,7 +250,7 @@ app.delete('/all', function(req, res){
 	} 
 });
 
-app.put('/critique/:id', function(req, res){
+app.put('/critique/:id', function(req, res){ //User submits critique
 	console.log('Received critique request');
 	var pieceId = parseInt(req.params.id, 10);
 	console.log(pieceId);
@@ -268,6 +268,13 @@ app.put('/critique/:id', function(req, res){
 		}
 	}).then(function(piece){
 		if(piece){
+			var critiqued = storage.getItemSync(piece.id);
+			if(critiqued && critiqued == 'true'){
+				res.status(409).send();
+			}
+			else {
+				storage.setItemSync(piece.id, 'true');
+			}
 			piece.update(attributes).then(function(piece){
 				db.piece.findAll({
 					where: {
@@ -280,7 +287,6 @@ app.put('/critique/:id', function(req, res){
 				});
 				res.status(200).json(piece);
 			});
-		}
 	}).catch(function(e){
 		res.status(500).json(e);
 	});
@@ -300,6 +306,7 @@ app.put('/remove-critique/:id', function(req, res){
 		}
 	}).then(function(piece){
 		if(piece){
+			storage.setItemSync(piece.id, 'false');
 			piece.update(attributes).then(function(piece){
 				db.piece.findAll({
 					where: {

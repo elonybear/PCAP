@@ -63,6 +63,9 @@ $(document).on('click', '.user-critique-submit', function(event){
 				console.log("Could not set critique");
 				location.reload();
 			},
+			409: function(){
+				alert('Already being edited');
+			}
 			200: location.reload()
 		}
 	});
