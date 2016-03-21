@@ -7,7 +7,6 @@ var crypto = require('crypto-js');
 var storage = require('node-persist');
 var jsdiff = require('diff');
 var GoogleSpreadsheet = require('google-spreadsheet');
-var mutex = require('node-mutex')();
 
 var app = express();
 var PORT = process.env.PORT || 3000;
@@ -287,6 +286,7 @@ app.put('/critique/:id', function(req, res){ //User submits critique
 				});
 				res.status(200).json(piece);
 			});
+		}
 	}).catch(function(e){
 		res.status(500).json(e);
 	});
