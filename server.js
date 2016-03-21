@@ -153,6 +153,7 @@ app.post('/upload', function(req, res){
 						}
 						console.log(i);
 						db.piece.create(new_piece).then(function(piece){
+							storage.setItemSync(piece.id.toString(), 'false');
 						}, function(err){
 							console.log(err);
 							res.status(500).json(err);
@@ -267,12 +268,12 @@ app.put('/critique/:id', function(req, res){ //User submits critique
 		}
 	}).then(function(piece){
 		if(piece){
-			var critiqued = storage.getItemSync(piece.id);
-			if(critiqued && critiqued == 'true'){
+			var critiqued = storage.getItemSync(piece.id.toString());
+			if(critiqued == 'true'){
 				res.status(409).send();
 			}
 			else {
-				storage.setItemSync(piece.id, 'true');
+				storage.setItemSync(piece.id.toString(), 'true');
 			}
 			piece.update(attributes).then(function(piece){
 				db.piece.findAll({
@@ -306,7 +307,7 @@ app.put('/remove-critique/:id', function(req, res){
 		}
 	}).then(function(piece){
 		if(piece){
-			storage.setItemSync(piece.id, 'false');
+			storage.setItemSync(piece.id.toString(), 'false');
 			piece.update(attributes).then(function(piece){
 				db.piece.findAll({
 					where: {
